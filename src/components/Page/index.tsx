@@ -7,7 +7,7 @@ import {
   getChapterDirectory,
   isProductRoot
 } from '../../utils/getLocalDirectory';
-import { useRef } from 'react';
+import { createContext, useContext, useEffect, useRef, useState } from 'react';
 import {
   filterMetadataByOption,
   SelectedFilters
@@ -20,6 +20,21 @@ export type MdxFrontmatterType = {
   lastUpdated: string;
 };
 
+const HydrationContext = createContext(false);
+
+function HydrationProvider({ children }) {
+  const [hydrated, setHydrated] = useState(false);
+  useEffect(() => {
+    setHydrated(true);
+    console.log('hydrated?')
+  }, []);
+  return (
+    <HydrationContext.Provider value={hydrated}>
+      {children}
+    </HydrationContext.Provider>
+  );
+}
+
 export default function Page({
   children,
   meta,
@@ -29,8 +44,9 @@ export default function Page({
   meta?: any;
   frontmatter?: MdxFrontmatterType;
 }) {
-  const footerRef = useRef(null);
   const router = useRouter();
+  const footerRef = useRef(null);
+  const hydrated = useContext(HydrationContext);
 
   if (!router.isReady) {
     return <></>;
@@ -112,29 +128,31 @@ export default function Page({
   }
 
   return (
-    <Layout
-      meta={meta}
-      filterKey={filterKey}
-      filterMetadataByOption={filterMetadataByOption}
-      ref={footerRef}
-    >
-      {meta ? (
-        <MetaContent
-          title={meta.title}
-          chapterTitle={meta.chapterTitle}
-          headers={headers}
-          children={children}
-          filters={filters}
-          filterKey={filterKey}
-          filterKind={filterKind}
-          url={url}
-          directoryPath={directoryPath}
-          parentPageLastUpdatedDate={parentPageLastUpdatedDate}
-          footerRef={footerRef}
-        />
-      ) : (
-        children
-      )}
-    </Layout>
+    <HydrationProvider>
+      <Layout
+        meta={meta}
+        filterKey={filterKey}
+        filterMetadataByOption={filterMetadataByOption}
+        ref={footerRef}
+      >
+        {meta ? (
+          <MetaContent
+            title={meta.title}
+            chapterTitle={meta.chapterTitle}
+            headers={headers}
+            children={children}
+            filters={filters}
+            filterKey={filterKey}
+            filterKind={filterKind}
+            url={url}
+            directoryPath={directoryPath}
+            parentPageLastUpdatedDate={parentPageLastUpdatedDate}
+            footerRef={footerRef}
+          />
+        ) : (
+          children
+        )}
+      </Layout>
+    </HydrationProvider>
   );
 }
