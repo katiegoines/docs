@@ -29,23 +29,19 @@ function TableOfContents({ children, title, buttonsRef }, ref) {
       ? false
       : window.matchMedia(MQDesktopJS).matches;
 
-  if (children.length === 0) {
-    return <></>;
-  }
-  window.onload = (_) => {
-    if (window.location.href.includes('#')) {
-      const hash = window.location.href.split('#')[1];
-      scroll(hash);
-    }
-  };
-  let headers = [];
+  let headers: Array<string> = [];
   let headerQueries = [];
   let activeLink = 0;
   let previousLink = -1;
   useEffect(() => {
+    if (window.location.href.includes('#')) {
+      const hash = window.location.href.split('#')[1];
+      scroll(hash);
+    }
+
     const idSet = new Set();
     const headings = document.querySelectorAll('a > h2, a > h3');
-    const headings2 = document.getElementById('toc').querySelectorAll('a');
+    const headings2 = document.getElementById('toc')?.querySelectorAll('a');
     for (let i = 0; i < headings.length; ++i) {
       const id = headings[i].id;
       let counter = 0;
@@ -57,7 +53,7 @@ function TableOfContents({ children, title, buttonsRef }, ref) {
       idSet.add(uniqueId);
 
       headings[i].id = uniqueId;
-      if (counter !== 0) {
+      if (headings2 && counter !== 0) {
         (headings[i].parentElement as HTMLAnchorElement).href = `#${uniqueId}`;
         headings2[i].href = `#${uniqueId}`;
       }
@@ -121,6 +117,20 @@ function TableOfContents({ children, title, buttonsRef }, ref) {
       document.removeEventListener('scroll', scrollHandler);
     };
   }, []);
+
+  if (children.length === 0) {
+    return <></>;
+  }
+  // window.onload = (_) => {
+  //   console.log('window loaded')
+  //   if (window.location.href.includes('#')) {
+  //     console.log('trying to scroll')
+  //     const hash = window.location.href.split('#')[1];
+  //     scroll(hash);
+  //   }
+  // };
+
+
 
   const closeToc = () => {
     if (typeof document !== 'undefined' && !onDesktop) {
