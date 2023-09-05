@@ -2,6 +2,7 @@ import React from 'react';
 import { ExternalLinkGraphic } from './styles';
 import { trackExternalLink } from '../../utils/track';
 import { ExternalLinkIcon } from '../Icons';
+import { Link } from '@aws-amplify/ui-react';
 
 type ExternalLinkProps = {
   graphic?: string;
@@ -18,12 +19,11 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   icon
 }) => {
   return (
-    <a
+    <Link
       href={href}
-      rel="noopener noreferrer"
-      target="_blank"
       title={anchorTitle}
-      onClick={(e) => {
+      isExternal={true}
+      onClick={() => {
         trackLink(href);
       }}
     >
@@ -37,7 +37,7 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
         />
       )}
       {icon && <ExternalLinkIcon />}
-    </a>
+    </Link>
   );
 };
 

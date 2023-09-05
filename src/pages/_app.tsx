@@ -4,6 +4,7 @@ import '../styles/contribute-styles.css';
 import Head from 'next/head';
 import { MDXProvider } from '@mdx-js/react';
 import ExportedImage from 'next-image-export-optimizer';
+import { ThemeProvider } from '@aws-amplify/ui-react';
 
 const ResponsiveImage = (props) => (
   <ExportedImage style={{ height: 'auto' }} {...props} />
@@ -15,7 +16,7 @@ const components = {
 
 function MyApp({ Component, pageProps }) {
   return (
-    <>
+    <ThemeProvider>
       <Head>
         <meta
           name="msapplication-TileImage"
@@ -110,7 +111,7 @@ function MyApp({ Component, pageProps }) {
           <script src="https://d2c.aws.amazon.com/client/loader/v1/d2c-load.js"></script>
         </>
       )}
-    </>
+    </ThemeProvider>
   );
 }
 

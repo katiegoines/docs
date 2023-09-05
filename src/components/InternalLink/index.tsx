@@ -1,8 +1,10 @@
-import Link from 'next/link';
+// import Link from 'next/link';
+import { Link } from '@aws-amplify/ui-react';
 import { useRouter } from 'next/router';
 import { parseLocalStorage } from '../../utils/parseLocalStorage';
 
 export default function InternalLink({ href, children }) {
+  // console.log(href, children);
   let filterKind = '';
   if (href.startsWith('/cli') || href.startsWith('/console')) {
     filterKind = '';
@@ -39,9 +41,9 @@ export default function InternalLink({ href, children }) {
     href = prevPath + href;
   }
 
-  return (
-    <Link href={href} passHref legacyBehavior>
-      {children}
-    </Link>
-  );
+  if (children.props) {
+    children = children.props.children;
+  }
+
+  return <Link href={href}>{children}</Link>;
 }
