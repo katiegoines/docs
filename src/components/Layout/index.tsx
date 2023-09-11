@@ -11,6 +11,7 @@ import {
   SOCIAL_LINKS
 } from '../../utils/globalnav';
 import { forwardRef } from 'react';
+import { View, Flex } from '@aws-amplify/ui-react';
 
 const Layout = forwardRef(function Layout(
   {
@@ -91,9 +92,9 @@ const Layout = forwardRef(function Layout(
         currentSite={current}
       />
       <SecondaryNav />
-      <Container backgroundColor="bg-color-tertiary">
-        <LayoutStyle>{children}</LayoutStyle>
-      </Container>
+      <View backgroundColor="bg-color-tertiary">
+        <Flex>{children}</Flex>
+      </View>
       <Footer ref={footerRef} />
     </>
   );

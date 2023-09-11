@@ -1,8 +1,6 @@
 import React from 'react';
-import { ExternalLinkGraphic } from './styles';
 import { trackExternalLink } from '../../utils/track';
-import { ExternalLinkIcon } from '../Icons';
-import { Link } from '@aws-amplify/ui-react';
+import { Link, Image } from '@aws-amplify/ui-react';
 
 type ExternalLinkProps = {
   graphic?: string;
@@ -15,9 +13,10 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
   children,
   graphic,
   href,
-  anchorTitle,
-  icon
+  anchorTitle
 }) => {
+  const iconColor = graphic ? graphic : 'black';
+
   return (
     <Link
       href={href}
@@ -28,15 +27,13 @@ const ExternalLink: React.FC<ExternalLinkProps> = ({
       }}
     >
       {children}
-      {graphic && (
-        <ExternalLinkGraphic
-          alt="External link"
-          src={`/assets/external-link-${graphic}.svg`}
-          width="8"
-          height="8"
-        />
-      )}
-      {icon && <ExternalLinkIcon />}
+      <Image
+        alt="External link"
+        src={`/assets/external-link-${iconColor}.svg`}
+        width="8px"
+        height="8px"
+        marginLeft="4px"
+      />
     </Link>
   );
 };

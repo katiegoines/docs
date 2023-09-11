@@ -2,11 +2,32 @@ import { useRef, useState, createElement, useEffect } from 'react';
 import { Details, Summary } from './styles';
 import { Expand, DeepDive } from './icons';
 import { trackExpanderOpen } from '../../utils/track';
+import {
+  Expander,
+  ExpanderItem,
+  Flex,
+  View,
+  useTheme
+} from '@aws-amplify/ui-react';
 
 type AccordionProps = {
   title?: string;
   headingLevel?: string;
   eyebrow?: string;
+};
+
+export const CustomTitle = ({ eyebrow, anchor }) => {
+  const { tokens } = useTheme();
+  return (
+    <Flex id="docs-expander__summary" className="docs-expander__summary">
+      <div className="docs-expander__eyebrow">
+        <DeepDive />
+        {eyebrow}
+      </div>
+      {anchor}
+      <div className="docs-expander__title__indicator"></div>
+    </Flex>
+  );
 };
 
 const Accordion: React.FC<AccordionProps> = ({
@@ -85,74 +106,80 @@ const Accordion: React.FC<AccordionProps> = ({
     iterations: 1
   };
 
-  const closeAccordion = () => {
-    const expander = docsExpander.current;
-    if (expander) {
-      const scrollToLoc = expander.offsetTop - 48 - 70 - 10; // account for nav heights and 10px buffer
+  const setDataStateForAllChildren = function(el) {
+    if (el.hasChildNodes) {
+      // console.log('has child nodes');
+      const childArray = Array.from(el.children);
+      childArray.forEach((child) => {
+        // console.log(child);
+        if (child.getAttribute('data-state')) {
+          child.setAttribute('data-state', 'closed');
+        }
+        if (child.classList.contains('amplify-expander__content')) {
+          child.setAttribute('hidden', '');
 
-      expander.animate(collapse, animationTiming);
-      window.scrollTo({
-        left: 0,
-        top: scrollToLoc,
-        behavior: 'smooth'
+          console.log(child);
+        }
+        if (child.classList.contains('amplify-expander__trigger')) {
+          child.setAttribute('aria-expanded', false);
+        }
+        setDataStateForAllChildren(child);
       });
-      setTimeout(function() {
-        expander.removeAttribute('open');
-      }, 700);
     }
   };
 
-  const toggleAccordion = (e) => {
+  const closeAccordion = (e) => {
+    e.preventDefault();
+    const expander =
+      e.target.parentElement.parentElement.parentElement.parentElement;
+
+    expander.setAttribute('data-state', 'closed');
+    setDataStateForAllChildren(expander);
+    // const array = Array.from(expander.children);
+
+    // if (expander.getAttribute('data-state') === 'open') {
+    // expander.setAttribute('data-state', 'closed');
+
+    const scrollToLoc = expander.offsetTop - 48 - 70 - 10; // account for nav heights and 10px buffer
+
+    // expander.animate(collapse, animationTiming);
+    // window.scrollTo({
+    //   left: 0,
+    //   top: scrollToLoc,
+    //   behavior: 'smooth'
+    // });
+    // }
+  };
+
+  const trackOpenClicks = (e) => {
     e.preventDefault();
 
-    const expander = docsExpander.current;
-    // Close accordion
-    if (expander?.hasAttribute('open')) {
-      expander?.animate(collapse, animationTiming);
-      setTimeout(function() {
-        expander.removeAttribute('open');
-      }, 700);
-    } else {
-      // Open accordion
-      trackExpanderOpen(expander?.id.replace('-acc', ''));
-      expander?.setAttribute('open', '');
-      expander?.animate(expand, animationTiming);
+    if (e.currentTarget.getAttribute('data-state') !== 'open') {
+      trackExpanderOpen(anchor.props?.children.props.id);
     }
   };
 
   return (
-    <Details
-      id={headingId + '-acc'}
-      className="docs-expander"
-      ref={docsExpander}
-    >
-      <Summary
-        id="docs-expander__summary"
-        className="docs-expander__summary"
-        onClick={toggleAccordion}
+    <Expander isCollapsible={true}>
+      <ExpanderItem
+        title={<CustomTitle eyebrow={eyebrow} anchor={anchor} />}
+        value="item-2"
+        onClick={trackOpenClicks}
       >
-        <div className="docs-expander__eyebrow">
-          <DeepDive />
-          {eyebrow}
+        <div id="docs-expander__body" className="docs-expander__body">
+          {children}
         </div>
-        {anchor}
-        <div className="docs-expander__title__indicator">
-          <Expand />
-        </div>
-      </Summary>
-      <div id="docs-expander__body" className="docs-expander__body">
-        {children}
-      </div>
-      {closeButton ? (
-        <button
-          id="docs-expander__body__button"
-          className="docs-expander__body__button"
-          onClick={closeAccordion}
-        >
-          <Expand />
-        </button>
-      ) : null}
-    </Details>
+        {closeButton ? (
+          <button
+            id="docs-expander__body__button"
+            className="docs-expander__body__button"
+            onClick={closeAccordion}
+          >
+            <Expand />
+          </button>
+        ) : null}
+      </ExpanderItem>
+    </Expander>
   );
 };
 

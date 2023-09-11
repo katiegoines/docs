@@ -186,7 +186,7 @@ const Feedback = forwardRef(function Feedback({}, ref) {
                   {c.noVoteCTA}
                 </FeedbackTextAfter>
                 <ButtonStyles>
-                  <ExternalLink href={c.buttonLink} icon={true}>
+                  <ExternalLink href={c.buttonLink}>
                     {c.noVoteCTAButton}
                   </ExternalLink>
                 </ButtonStyles>
