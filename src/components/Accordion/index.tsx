@@ -20,7 +20,7 @@ const Accordion: React.FC<AccordionProps> = ({
   const docsExpander = useRef<HTMLElement>(null);
 
   useEffect(() => {
-    const expander = docsExpander.current;
+    const expander = docsExpander.current; 
 
     const initHeight =
       expander?.children['docs-expander__summary']?.offsetHeight;
