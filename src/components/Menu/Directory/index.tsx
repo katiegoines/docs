@@ -9,6 +9,8 @@ import {
   ProductRootLinkStyle
 } from './styles';
 import type { DirectoryItem } from '../../../directory/directory';
+import { Button, Icon, Flex, View } from '@aws-amplify/ui-react';
+
 
 export type DirectoryGroupProps = {
   title: string;
@@ -75,14 +77,14 @@ class DirectoryGroup extends React.Component<
 
     return (
       <div>
-        <DirectoryGroupHeaderStyle onClick={this.toggleOpen}>
+        <Button onClick={this.toggleOpen}>
           <h4>{this.props.title}</h4>
-          <ArrowStyle isUp={this.state.isExpanded} />
-        </DirectoryGroupHeaderStyle>
+          <Icon isUp={this.state.isExpanded} />
+        </Button>
         {this.state.isExpanded && (
-          <DirectoryLinksStyle>
+          <Flex direction="column">
             {this.itemsToDisplay.map((item) => (
-              <DirectoryGroupItemStyle
+              <View
                 isActive={this.currentRoute === item.route}
                 key={item.title}
               >
@@ -96,9 +98,9 @@ class DirectoryGroup extends React.Component<
                   )}
                 </InternalLink>
                 <br />
-              </DirectoryGroupItemStyle>
+              </View>
             ))}
-          </DirectoryLinksStyle>
+          </Flex>
         )}
       </div>
     );

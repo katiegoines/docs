@@ -6,6 +6,7 @@ import {
   TabContainerStyle,
   TabStyle
 } from './styles';
+import { Tabs, TabItem } from '@aws-amplify/ui-react';
 
 type ContextType = {
   tabOrder: string[];
@@ -68,26 +69,17 @@ export default function BlockSwitcher({ children }) {
   const activeIndex = getActiveIndex(children, ctx.tabOrder);
 
   return (
-    <HostStyle>
-      <TabContainerStyle>
-        {children?.map((node, index) => {
-          return (
-            <SwitcherButton
-              name={node.props.name}
-              key={index}
-              isActive={index === activeIndex}
-              ctx={ctx}
-              {...node.props}
-            />
-          );
-        })}
-      </TabContainerStyle>
-      <SwitcherContentStyle>
-        {children?.map(
-          (node, index) =>
-            index === activeIndex && <div key={index}>{node}</div>
-        )}
-      </SwitcherContentStyle>
-    </HostStyle>
+    <Tabs>
+      {children?.map((node, index) => {
+        return (
+          <TabItem
+            title={node.props.name}
+            key={index}
+            ctx={ctx}
+            {...node.props}
+          />
+        );
+      })}
+    </Tabs>
   );
 }
