@@ -121,14 +121,14 @@ function Menu(props: MenuProps, ref) {
                 </div>
               )}
               {onDesktop && <MenuCloseButton closeMenu={closeMenu} />}
-              {typeof props.filterKey !== 'undefined' && (
+              {/* {typeof props.filterKey !== 'undefined' && (
                 <FilterSelect
                   filters={props.filters}
                   filterKey={props.filterKey}
                   filterKind={props.filterKind}
                   url={props.url}
                 />
-              )}
+              )} */}
             </MenuHeaderStyle>
             <MenuBodyStyle>
               {showLibVersionSwitcher && (

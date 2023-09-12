@@ -8,6 +8,7 @@ import { useRef, useState } from 'react';
 import { MQDesktop } from '../media';
 import Feedback from '../Feedback';
 import LastUpdatedDatesProvider from '../LastUpdatedProvider';
+import DocsBreadcrumbs from '../Breadcrumbs';
 
 export default function MetaContent({
   title,
@@ -64,6 +65,12 @@ export default function MetaContent({
           buttonsRef={buttonsRef}
         ></Menu>
         <ContentStyle menuIsOpen={menuIsOpen}>
+          <DocsBreadcrumbs
+            filters={filters}
+            filterKey={filterKey}
+            filterKind={filterKind}
+            url={url}
+          />
           <div>
             <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
             <div>
