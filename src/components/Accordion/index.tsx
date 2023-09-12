@@ -108,9 +108,9 @@ const Accordion: React.FC<AccordionProps> = ({
 
   const setDataStateForAllChildren = function(e, el) {
     console.log(e, el);
-    // if (e.type === 'click') {
-    //   console.log(e);
-    // }
+    if (e) {
+      e.preventDefault();
+    }
     if (el.hasChildNodes) {
       // console.log('has child nodes');
       const childArray = Array.from(el.children);
@@ -118,12 +118,15 @@ const Accordion: React.FC<AccordionProps> = ({
         // console.log(child);
         if (child.getAttribute('data-state')) {
           child.setAttribute('data-state', 'closed');
-          setDataStateForAllChildren(child);
+          setDataStateForAllChildren(null, child);
         } else {
           return;
         }
         if (child.classList.contains('amplify-expander__content')) {
           child.setAttribute('hidden', '');
+          child
+            .getElementsByClassName('amplify-expander__content__text')[0]
+            .setAttribute('display', 'none');
         }
         if (child.classList.contains('amplify-expander__trigger')) {
           child.setAttribute('aria-expanded', false);
@@ -139,10 +142,6 @@ const Accordion: React.FC<AccordionProps> = ({
 
     expander.setAttribute('data-state', 'closed');
     setDataStateForAllChildren(e, expander);
-    // const array = Array.from(expander.children);
-
-    // if (expander.getAttribute('data-state') === 'open') {
-    // expander.setAttribute('data-state', 'closed');
 
     const scrollToLoc = expander.offsetTop - 48 - 70 - 10; // account for nav heights and 10px buffer
 
@@ -164,7 +163,7 @@ const Accordion: React.FC<AccordionProps> = ({
   };
 
   return (
-    <Expander isCollapsible={true}>
+    <Expander type="single" isCollapsible={true}>
       <ExpanderItem
         title={<CustomTitle eyebrow={eyebrow} anchor={anchor} />}
         value="item-2"
@@ -176,7 +175,7 @@ const Accordion: React.FC<AccordionProps> = ({
         {closeButton ? (
           <button
             id="docs-expander__body__button"
-            className="docs-expander__body__button"
+            className="docs-expander__body__button amplify-expander__trigger"
             onClick={closeAccordion}
           >
             <Expand />
