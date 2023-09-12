@@ -106,7 +106,11 @@ const Accordion: React.FC<AccordionProps> = ({
     iterations: 1
   };
 
-  const setDataStateForAllChildren = function(el) {
+  const setDataStateForAllChildren = function(e, el) {
+    console.log(e, el);
+    // if (e.type === 'click') {
+    //   console.log(e);
+    // }
     if (el.hasChildNodes) {
       // console.log('has child nodes');
       const childArray = Array.from(el.children);
@@ -114,16 +118,16 @@ const Accordion: React.FC<AccordionProps> = ({
         // console.log(child);
         if (child.getAttribute('data-state')) {
           child.setAttribute('data-state', 'closed');
+          setDataStateForAllChildren(child);
+        } else {
+          return;
         }
         if (child.classList.contains('amplify-expander__content')) {
           child.setAttribute('hidden', '');
-
-          console.log(child);
         }
         if (child.classList.contains('amplify-expander__trigger')) {
           child.setAttribute('aria-expanded', false);
         }
-        setDataStateForAllChildren(child);
       });
     }
   };
@@ -134,7 +138,7 @@ const Accordion: React.FC<AccordionProps> = ({
       e.target.parentElement.parentElement.parentElement.parentElement;
 
     expander.setAttribute('data-state', 'closed');
-    setDataStateForAllChildren(expander);
+    setDataStateForAllChildren(e, expander);
     // const array = Array.from(expander.children);
 
     // if (expander.getAttribute('data-state') === 'open') {
