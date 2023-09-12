@@ -5,12 +5,16 @@ import {
 } from '../../utils/filter-data';
 import React from 'react';
 import { Breadcrumbs, SelectField } from '@aws-amplify/ui-react';
+import { useRouter } from 'next/router';
 
 type FilterSelectProps = {
   filters: string[];
   filterKey: string;
   filterKind: string;
   url: string;
+  title: string;
+  chapterTitle: string;
+  headers: any;
 };
 
 type FilterSelectState = {
@@ -107,6 +111,8 @@ export default class DocsBreadcrumbs extends React.Component<
   };
 
   render() {
+    console.log(this.props);
+
     let allFilters = this.props.filters.slice();
 
     const filterName = function(filter) {
@@ -211,12 +217,24 @@ export default class DocsBreadcrumbs extends React.Component<
             <Breadcrumbs.Separator />
           </Breadcrumbs.Item>
         )}
-        {crumbs.map((el) => (
+        <Breadcrumbs.Item>
+          {/* <Breadcrumbs.Link key={this.props.chapterTitle} href={this.props.url}> */}
+          {this.props.chapterTitle}
+          {/* </Breadcrumbs.Link> */}
+          <Breadcrumbs.Separator />
+        </Breadcrumbs.Item>
+        <Breadcrumbs.Item>
+          {/* <Breadcrumbs.Link key={this.props.title} href={this.props.url}> */}
+          {this.props.title}
+          {/* </Breadcrumbs.Link> */}
+          <Breadcrumbs.Separator />
+        </Breadcrumbs.Item>
+        {/* {crumbs.map((el) => (
           <Breadcrumbs.Item>
             <Breadcrumbs.Link href={this.props.url}>{el}</Breadcrumbs.Link>
             <Breadcrumbs.Separator />
           </Breadcrumbs.Item>
-        ))}
+        ))} */}
       </Breadcrumbs.Container>
     );
   }

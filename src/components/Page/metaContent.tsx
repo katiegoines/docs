@@ -70,6 +70,9 @@ export default function MetaContent({
             filterKey={filterKey}
             filterKind={filterKind}
             url={url}
+            title={title}
+            chapterTitle={chapterTitle}
+            headers={headers}
           />
           <div>
             <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
