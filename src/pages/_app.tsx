@@ -14,9 +14,29 @@ const components = {
   img: ResponsiveImage
 };
 
+const theme = {
+  name: 'custom-theme',
+  tokens: {
+    components: {
+      card: {
+        backgroundColor: { value: 'lime' },
+        outlined: {
+          borderColor: { value: '{colors.black}' }
+        }
+      },
+      heading: {
+        color: { value: '#32CD32' }
+      },
+      text: {
+        color: { value: 'lime' }
+      }
+    }
+  }
+};
+
 function MyApp({ Component, pageProps }) {
   return (
-    <ThemeProvider>
+    <ThemeProvider theme={theme}>
       <Head>
         <meta
           name="msapplication-TileImage"

@@ -1,12 +1,6 @@
 import React, { useEffect } from 'react';
 import { useCodeBlockContext } from '../CodeBlockProvider';
-import {
-  HostStyle,
-  SwitcherContentStyle,
-  TabContainerStyle,
-  TabStyle
-} from './styles';
-import { Tabs, TabItem } from '@aws-amplify/ui-react';
+import { Tabs, TabItem, Button } from '@aws-amplify/ui-react';
 
 type ContextType = {
   tabOrder: string[];
@@ -26,13 +20,13 @@ const SwitcherButton: React.FC<SwitcherButtonProps> = ({
   ctx
 }) => (
   // eslint-disable-next-line react/jsx-no-bind
-  <TabStyle
+  <Button
     active={isActive}
     className={isActive ? 'tab-active' : null}
     onClick={() => ctx.setActiveTab(name)}
   >
     {name}
-  </TabStyle>
+  </Button>
 );
 
 const getActiveIndex = function(
