@@ -1,10 +1,9 @@
 import Layout from '../components/Layout';
-import styled from '@emotion/styled';
-import { Grid } from '@theme-ui/components';
+// import { Grid } from '@theme-ui/components';
 import { useEffect, useRef, useState } from 'react';
 import MetaContent from '../components/Page/metaContent';
 import { Container } from '../components/Container';
-import { Card, CardDetail, CardGraphic } from '../components/Card';
+import Card from '../components/Card';
 import {
   filterOptionsByName,
   filterMetadataByOption
@@ -15,13 +14,7 @@ import {
   isProductRoot
 } from '../utils/getLocalDirectory';
 
-const H3 = styled.h3`
-  margin-top: 0.375rem;
-  font-size: 1.715rem;
-  line-height: 2.75rem;
-  font-weight: 400;
-  margin-bottom: 1.5rem;
-`;
+import { Image, Text, Heading, Grid } from '@aws-amplify/ui-react';
 
 function ChooseFilterPage({
   directoryPath,
@@ -68,28 +61,22 @@ function ChooseFilterPage({
   const children = (
     <Container>
       <section>
-        {message && <H3>{message}</H3>}
+        {message && <Heading level={3}>{message}</Heading>}
 
-        <Grid
-          columns={[1, null, null, 4]}
-          gap={3}
-          sx={{
-            marginTop: '1rem'
-          }}
-        >
+        <Grid templateColumns="1fr, null, null, 4fr" rowGap={3}>
           {filters.map((filter) => (
             <Card
               className="vertical"
               href={`${url}/q/${filterKind}/${filter}`}
               key={filter}
             >
-              <CardGraphic
+              <Image
                 alt={filterMetadataByOption[filter].label + ' icon'}
                 src={filterMetadataByOption[filter].graphicURI}
               />
-              <CardDetail>
+              <Text>
                 <h4>{filterMetadataByOption[filter].label}</h4>
-              </CardDetail>
+              </Text>
             </Card>
           ))}
         </Grid>

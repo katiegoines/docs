@@ -1,12 +1,7 @@
-import {
-  CodeBlockStyle,
-  CodeHighlightStyle,
-  CopyButtonStyle,
-  LineCountStyle
-} from './styles';
 import React from 'react';
 import copy from 'copy-to-clipboard';
 import { trackCopyClicks } from '../../utils/track';
+import { Flex, Button, View } from '@aws-amplify/ui-react';
 
 const COPY = 'copy';
 const COPIED = 'copied';
@@ -37,13 +32,13 @@ class CodeBlock extends React.Component<CodeBlockProps, CodeBlockState> {
     const lineCount = parseInt(this.props.lineCount);
     if (lineCount > 1 && this.props.language !== CONSOLE) {
       return (
-        <LineCountStyle>
+        <View>
           <div>
             {new Array(lineCount).fill(null).map((_, i) => (
               <span key={String(i + 1)}>{String(i + 1)}</span>
             ))}
           </div>
-        </LineCountStyle>
+        </View>
       );
     }
   };
@@ -94,9 +89,9 @@ class CodeBlock extends React.Component<CodeBlockProps, CodeBlockState> {
   copyButton = () => {
     if (this.props.language !== CONSOLE) {
       return (
-        <CopyButtonStyle onClick={this.copyToClipboard}>
+        <Button onClick={this.copyToClipboard}>
           <span>{this.state.copyMessage}</span>
-        </CopyButtonStyle>
+        </Button>
       );
     }
   };
@@ -107,13 +102,11 @@ class CodeBlock extends React.Component<CodeBlockProps, CodeBlockState> {
       this.props.lineCount === '1' || this.props.language === CONSOLE;
 
     return (
-      <CodeBlockStyle oneLine={oneLine}>
+      <Flex>
         {this.lineNumbers()}
-        <CodeHighlightStyle ref={this.setElement}>
-          {this.props.children}
-        </CodeHighlightStyle>
+        <div ref={this.setElement}>{this.props.children}</div>
         {this.copyButton()}
-      </CodeBlockStyle>
+      </Flex>
     );
   }
 }

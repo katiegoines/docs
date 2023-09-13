@@ -8,11 +8,11 @@ export default Callout;
 //   info?: boolean;
 //   warning?: boolean;
 // };
+// const Callout: React.FC<CalloutProps> = ({ info, warning, children }) => {
+//   if (typeof warning === 'undefined') info = true;
+//   const colorTheme = warning ? 'warning' : 'info';
 
-// const Callout: React.FC<CalloutProps> = ({ warning, children }) => {
-//   const alertType = warning ? 'warning' : 'info';
-
-//   return <Message colorTheme={alertType}>{children}</Message>;
+//   return <div colorTheme={colorTheme}>{children}</Message>;
 // };
 
 // export default Callout;
