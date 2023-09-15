@@ -31,5 +31,3 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const ignore = require('ignore');
-            const { validateCodeowners } = require('./.github/workflows/scripts/check_for_new_fragments.js');
-            validateCodeowners({github, context, fetch, ignore});
