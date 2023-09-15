@@ -35,7 +35,7 @@ module.exports = {
     } = context;
 
     const useInlineFiltersComment =
-      'We are moving away from the use of <Fragments>. Please instead use <InlineFilter>. See our README for guidance.';
+      'We are moving away from the use of Fragments. Please instead use InlineFilter. See our README for guidance.';
     github.rest.issues.createComment({
       owner,
       repo,
