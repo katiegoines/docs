@@ -26,5 +26,21 @@ module.exports = {
         // Return the new files count to be used in the github workflow
         return files.length;
       });
+  },
+
+  addComment: async ({ github, context }) => {
+    const {
+      issue: { number: issue_number },
+      repo: { owner, repo }
+    } = context;
+
+    const useInlineFiltersComment =
+      'We are moving away from the use of <Fragments>. Please instead use <InlineFilter>. See our README for guidance.';
+    github.rest.issues.createComment({
+      owner,
+      repo,
+      issue_number,
+      body: useInlineFiltersComment
+    });
   }
 };
