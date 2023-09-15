@@ -18,7 +18,7 @@ jobs:
           script: |
             const { getAddedFragments } = require('./.github/workflows/scripts/check_for_new_fragments.js');
             return getAddedFragments({github, context, core});
-      - name: Check file against CODEOWNERS
+      - name: Add Comment to PR if new fragments have been added
         if: ${{ steps.set-added-fragments-count.outputs.result > 0 }}
         uses: actions/github-script@v6.4.0
         env:
@@ -27,7 +27,7 @@ jobs:
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const { addComment } = require('./.github/workflows/scripts/check_for_new_files.js');
+            const { addComment } = require('./.github/workflows/scripts/check_for_new_fragments.js');
             addComment({github, context});
       - name: Fail if new fragments have been added
         if: ${{ steps.set-added-fragments-count.outputs.result > 0 }}
