@@ -1,4 +1,4 @@
-name: Block New Fragments
+name: Block PRs with New Fragments
 on:
   pull_request:
     branches: [main]
