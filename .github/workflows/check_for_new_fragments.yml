@@ -29,5 +29,3 @@ jobs:
           CURRENT_REPO: ${{ github.repository }}
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const ignore = require('ignore');
