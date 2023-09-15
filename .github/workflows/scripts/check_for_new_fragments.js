@@ -10,8 +10,10 @@ module.exports = {
       .paginate(
         'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
         { owner, repo, pull_number: issue_number },
-        (response) => response.data.filter((file) => file.status === 'added'),
-        console.log(response)
+        (response) => {
+          console.log(response);
+          response.data.filter((file) => file.status === 'added');
+        }
       )
       .then((files) => {
         // Save these values to the Github env
