@@ -11,7 +11,7 @@ module.exports = {
         'GET /repos/{owner}/{repo}/pulls/{pull_number}/files',
         { owner, repo, pull_number: issue_number },
         (response) => {
-          console.log(response);
+          console.log('RESPONSE', response);
           response.data.filter((file) => file.status === 'added');
         }
       )
