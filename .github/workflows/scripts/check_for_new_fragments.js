@@ -23,6 +23,7 @@ module.exports = {
 
         console.log('New fragments: ', files);
 
+        console.log(files.length);
         // Return the new files count to be used in the github workflow
         return files.length;
       });
