@@ -9,6 +9,7 @@ import MenuOpenButton from './MenuOpenButton';
 import MenuCloseButton from './MenuCloseButton';
 import { MQDesktop } from '../media';
 import Directory from './Directory';
+import RepoActions from './RepoActions';
 import FilterSelect from './FilterSelect';
 import { LibVersionSwitcher } from './VersionSwitcher';
 import { useLastUpdatedDatesContext } from '../LastUpdatedProvider';
@@ -133,8 +134,17 @@ function Menu(props: MenuProps, ref) {
                 />
               )}
               <Directory filterKey={props.filterKey} url={props.url} />
+<<<<<<< HEAD
               <Divider />
               <Text id="page-last-updated">
+=======
+              <MenuBreakStyle />
+              <RepoActions
+                url={props.url}
+                directoryPath={props.directoryPath}
+              />
+              <LastUpdatedStyle id="page-last-updated">
+>>>>>>> main
                 {displayLastUpdatedString(lastUpdatedDate)}
               </Text>
             </View>
