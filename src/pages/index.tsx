@@ -3,8 +3,8 @@ import Head from 'next/head';
 import { useEffect } from 'react';
 
 import LandingHeroCTA from '../components/LandingHeroCTA';
-import { Container } from '../components/Container';
-import { Card, CardDetail, CardGraphic } from '../components/Card';
+import Container from '../components/Container';
+import Card from '../components/Card';
 import FeaturesGrid from '../components/FeaturesGrid';
 import LinkBanner from '../components/LinkBanner';
 import Footer from '../components/Footer';
@@ -19,7 +19,7 @@ import {
 } from '../utils/globalnav';
 import React from 'react';
 
-import { Flex } from '@aws-amplify/ui-react';
+import { Flex, Image } from '@aws-amplify/ui-react';
 
 const meta = {
   title: 'Amplify Docs',
@@ -104,41 +104,41 @@ const Page = () => {
             }}
           >
             <Card href="/lib/q/platform/js">
-              <CardGraphic alt="" src="/assets/lib.png" />
-              <CardDetail>
+              <Image alt="" src="/assets/lib.png" />
+              <Flex>
                 <h4>Amplify Libraries</h4>
                 <p>
                   Connect app to new or existing AWS services (Cognito, S3, and
                   more).
                 </p>
-              </CardDetail>
+              </Flex>
             </Card>
             <Card href="/console">
-              <CardGraphic alt="" src="/assets/console.png" />
-              <CardDetail>
+              <Image alt="" src="/assets/console.png" />
+              <Flex>
                 <h4>Amplify Studio</h4>
                 <p>
                   Visual development environment to accelerate fullstack
                   development.
                 </p>
-              </CardDetail>
+              </Flex>
             </Card>
             <Card href="/cli">
-              <CardGraphic alt="" src="/assets/cli.png" />
-              <CardDetail>
+              <Image alt="" src="/assets/cli.png" />
+              <Flex>
                 <h4>Amplify CLI</h4>
                 <p>Configure an app backend with a guided CLI workflow.</p>
-              </CardDetail>
+              </Flex>
             </Card>
             <Card
               href="https://docs.aws.amazon.com/amplify/latest/userguide/getting-started.html"
               external
             >
-              <CardGraphic alt="" src="/assets/console.png" />
-              <CardDetail>
+              <Image alt="" src="/assets/console.png" />
+              <Flex>
                 <h4>Amplify Hosting</h4>
                 <p>Fully managed web hosting with fullstack CI/CD.</p>
-              </CardDetail>
+              </Flex>
             </Card>
           </Grid>
         </div>

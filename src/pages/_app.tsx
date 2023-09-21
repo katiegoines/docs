@@ -5,6 +5,7 @@ import Head from 'next/head';
 import { MDXProvider } from '@mdx-js/react';
 import ExportedImage from 'next-image-export-optimizer';
 import { ThemeProvider } from '@aws-amplify/ui-react';
+import '@aws-amplify/ui-react/styles.css';
 
 const ResponsiveImage = (props) => (
   <ExportedImage style={{ height: 'auto' }} {...props} />

@@ -134,17 +134,12 @@ function Menu(props: MenuProps, ref) {
                 />
               )}
               <Directory filterKey={props.filterKey} url={props.url} />
-<<<<<<< HEAD
               <Divider />
-              <Text id="page-last-updated">
-=======
-              <MenuBreakStyle />
               <RepoActions
                 url={props.url}
                 directoryPath={props.directoryPath}
               />
-              <LastUpdatedStyle id="page-last-updated">
->>>>>>> main
+              <Text id="page-last-updated">
                 {displayLastUpdatedString(lastUpdatedDate)}
               </Text>
             </View>

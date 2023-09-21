@@ -52,7 +52,6 @@ export default function RepoActions({ directoryPath, url }) {
   const shouldShowEditLink = directoryPath !== '/ChooseFilterPage';
   const editLink = createEditLink(directoryPath);
   return (
-<<<<<<< HEAD
     <Flex>
       <ExternalLink href={feedbackLink}>
         <img src="/assets/flag.svg" alt="" width="24" height="24" />
@@ -60,9 +59,6 @@ export default function RepoActions({ directoryPath, url }) {
           Feedback
         </span>
       </ExternalLink>
-=======
-    <RepoActionsStyle>
->>>>>>> main
       {shouldShowEditLink && (
         <ExternalLink href={editLink}>
           <img src="/assets/github.svg" alt="" width="24" height="24" />
