@@ -3,12 +3,9 @@ import {
   filterMetadataByOption,
   filterOptionsByName
 } from '../../../utils/filter-data';
-import {
-  FilterSelectStyle,
-  CurrentlySelectedStyle,
-  DropdownStyle
-} from './styles';
 import React from 'react';
+
+import { Flex, View } from '@aws-amplify/ui-react';
 
 type FilterSelectProps = {
   filters: string[];
@@ -155,18 +152,18 @@ export default class FilterSelect extends React.Component<
     if (this.props.filterKey === 'all') {
       const aOrAn = 'aeiou'.includes(this.props.filterKind[0]) ? 'an' : 'a';
       CurrentlySelected = (
-        <CurrentlySelectedStyle>
+        <Flex>
           <a onClick={this.toggleVis} className="filter-row">
             <span>
               Choose {aOrAn} {this.props.filterKind}:
             </span>
           </a>
-        </CurrentlySelectedStyle>
+        </Flex>
       );
     } else if (this.props.filterKey in filterMetadataByOption) {
       const supported = !unsupportedFilters.includes(this.props.filterKey);
       CurrentlySelected = (
-        <CurrentlySelectedStyle>
+        <Flex>
           <div className={!supported ? 'unsupported' : ''}>
             <a onClick={this.toggleVis} className="filter-row">
               <img
@@ -178,20 +175,20 @@ export default class FilterSelect extends React.Component<
               <span>{filterMetadataByOption[this.props.filterKey]?.label}</span>
             </a>
           </div>
-        </CurrentlySelectedStyle>
+        </Flex>
       );
     }
 
     return (
-      <FilterSelectStyle ref={this.wrapperRef}>
+      <Flex ref={this.wrapperRef}>
         {CurrentlySelected}
-        <DropdownStyle shouldDisplay={this.state.isOpen}>
+        <View as="div">
           <div>{this.props.filters.map(this.renderFilter)}</div>
           <div className="unsupported">
             {unsupportedFilters.map(this.renderUnsupportedFilter)}
           </div>
-        </DropdownStyle>
-      </FilterSelectStyle>
+        </View>
+      </Flex>
     );
   }
 }

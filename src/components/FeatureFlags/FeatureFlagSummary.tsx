@@ -1,33 +1,8 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-import getElementTop from "../../utils/get-element-top";
-import FeatureFlagValues from "./FeatureFlagValues";
-import InternalLink from "../InternalLink";
-
-import styled from "@emotion/styled";
-
-export const TableContainer = styled.div`
-  overflow-x: auto;
-  margin-bottom: 1rem;
-`;
-
-export const Table = styled.table`
-  text-align: center;
-  width: 100%;
-
-  thead tr {
-    background-color: var(--bg-color-tertiary);
-  }
-  tbody tr th {
-    width: 5rem;
-  }
-`;
-
-export const SummaryRow = styled.tr`
-  th {
-    min-width: 16%;
-    width: 16%;
-  }
-`;
+import getElementTop from '../../utils/get-element-top';
+import FeatureFlagValues from './FeatureFlagValues';
+import InternalLink from '../InternalLink';
+import { Table, TableRow, View } from '@aws-amplify/ui-react';
 
 export type FeatureFlags = Record<string, Section>;
 
@@ -38,8 +13,8 @@ export type Section = {
 
 export type FeatureFlag = {
   description: string;
-  type: "Feature" | "Release" | "Experimental";
-  valueType: "Boolean" | "Number" | "String";
+  type: 'Feature' | 'Release' | 'Experimental';
+  valueType: 'Boolean' | 'Number' | 'String';
   versionAdded: string;
   versionDeprecated?: string;
   deprecationDate?: string;
@@ -55,10 +30,10 @@ export type Value = {
   defaultExistingProject: boolean;
 };
 
-export default function FeatureFlagSummary({name, feature}) {
+export default function FeatureFlagSummary({ name, feature }) {
   return (
     <div>
-      <InternalLink href={"#" + name}>
+      <InternalLink href={'#' + name}>
         <a
           onClick={() => {
             setTimeout(scroll.bind(undefined, name), 50);
@@ -70,17 +45,17 @@ export default function FeatureFlagSummary({name, feature}) {
       </InternalLink>
 
       {feature.description ? <p>{feature.description}</p> : undefined}
-      <TableContainer>
+      <View as="div">
         <Table>
           <thead>
-            <SummaryRow>
+            <TableRow>
               <th>Type</th>
               <th>Added</th>
               <th>Deprecation date</th>
               <th>Deprecated</th>
               <th>Removal date</th>
               <th>Removed</th>
-            </SummaryRow>
+            </TableRow>
           </thead>
           <tbody>
             <tr>
@@ -93,7 +68,7 @@ export default function FeatureFlagSummary({name, feature}) {
             </tr>
           </tbody>
         </Table>
-      </TableContainer>
+      </View>
 
       <FeatureFlagValues values={feature.values} />
     </div>
@@ -105,6 +80,6 @@ function scroll(hash) {
   const header = document.querySelector(`[id="${hash}"]`);
   const top = getElementTop(header, stickyHeaderHeight);
   if (top !== window.scrollY) {
-    window.scrollTo({top});
+    window.scrollTo({ top });
   }
 }

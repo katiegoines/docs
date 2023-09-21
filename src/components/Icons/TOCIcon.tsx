@@ -1,15 +1,7 @@
-import { Icon } from '@aws-amplify/ui-react';
-import styled from '@emotion/styled';
-
-const TOCWrapper = styled.span`
-  cursor: pointer;
-  svg {
-    fill: none;
-  }
-`;
+import { Icon, View } from '@aws-amplify/ui-react';
 
 export const TOCIcon = ({ ariaLabel, onClick }) => (
-  <TOCWrapper>
+  <View as="span">
     <Icon
       ariaLabel={ariaLabel}
       onClick={onClick}
@@ -45,5 +37,5 @@ export const TOCIcon = ({ ariaLabel, onClick }) => (
         stroke-linecap="square"
       />
     </Icon>
-  </TOCWrapper>
+  </View>
 );

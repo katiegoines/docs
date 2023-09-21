@@ -1,23 +1,7 @@
-import { Icon } from '@aws-amplify/ui-react';
-import styled from '@emotion/styled';
-
-const CloseWrapper = styled.span`
-  display: flex;
-  align-items: center;
-  svg {
-    cursor: pointer;
-    &:hover {
-      color: #000716;
-    }
-    path {
-      stroke: currentColor;
-      stroke-width: 1.5px;
-    }
-  }
-`;
+import { Icon, View } from '@aws-amplify/ui-react';
 
 export const CloseIcon = ({ onClick }) => (
-  <CloseWrapper>
+  <View as="span">
     <Icon
       width="12px"
       height="12px"
@@ -31,5 +15,5 @@ export const CloseIcon = ({ onClick }) => (
         height: 16
       }}
     />
-  </CloseWrapper>
+  </View>
 );

@@ -1,6 +1,6 @@
-import {MenuOpenButtonStyle} from "./styles";
-import React from "react";
-import {DESKTOP_OPEN} from "../../../constants/img";
+import React from 'react';
+import { DESKTOP_OPEN } from '../../../constants/img';
+import { Button } from '@aws-amplify/ui-react';
 
 type OpenButtonProps = {
   openMenu: () => void;
@@ -14,15 +14,15 @@ export default class MenuOpenButton extends React.Component<
 > {
   constructor(props) {
     super(props);
-    this.state = {isHovered: false};
+    this.state = { isHovered: false };
   }
 
   hover = () => {
-    this.setState({isHovered: true});
+    this.setState({ isHovered: true });
   };
 
   unhover = () => {
-    this.setState({isHovered: false});
+    this.setState({ isHovered: false });
   };
 
   onClick = () => {
@@ -34,13 +34,13 @@ export default class MenuOpenButton extends React.Component<
       ? DESKTOP_OPEN.darkSrc
       : DESKTOP_OPEN.lightSrc;
     return (
-      <MenuOpenButtonStyle
+      <Button
         onClick={this.onClick}
         onMouseEnter={this.hover}
         onMouseLeave={this.unhover}
       >
         <img alt={DESKTOP_OPEN.alt} src={imgLink} />
-      </MenuOpenButtonStyle>
+      </Button>
     );
   }
 }

@@ -2,12 +2,12 @@ import CodeBlockProvider from '../CodeBlockProvider/index';
 import Menu from '../Menu/index';
 import TableOfContents from '../TableOfContents/index';
 import NextPrevious from '../NextPrevious/index';
-import { ContentStyle, ChapterTitleStyle } from './styles';
 import MobileMenuIcons from '../MobileMenuIcons';
 import { useRef, useState } from 'react';
 import { MQDesktop } from '../media';
 import Feedback from '../Feedback';
 import LastUpdatedDatesProvider from '../LastUpdatedProvider';
+import { Heading, Flex } from '@aws-amplify/ui-react';
 
 export default function MetaContent({
   title,
@@ -63,9 +63,9 @@ export default function MetaContent({
           setMenuIsOpen={setMenuIsOpen}
           buttonsRef={buttonsRef}
         ></Menu>
-        <ContentStyle menuIsOpen={menuIsOpen}>
+        <Flex menuIsOpen={menuIsOpen}>
           <div>
-            <ChapterTitleStyle>{chapterTitle}</ChapterTitleStyle>
+            <Heading>{chapterTitle}</Heading>
             <div>
               <h1>{title}</h1>
             </div>
@@ -75,7 +75,7 @@ export default function MetaContent({
               <NextPrevious url={url} filterKey={filterKey} />
             </CodeBlockProvider>
           </div>
-        </ContentStyle>
+        </Flex>
         <TableOfContents
           title={title}
           ref={contentsRef}

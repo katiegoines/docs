@@ -1,12 +1,12 @@
-import { Host, Container } from '../../styles/link-button-styles';
-import InternLink from '../InternalLink';
+import { View } from '@aws-amplify/ui-react';
+import InternalLink from '../InternalLink';
 
 export default function InternalLinkButton({ href, children }) {
   return (
-    <Host>
-      <InternLink href={href}>
-        <Container>{children}</Container>
-      </InternLink>
-    </Host>
+    <View as="div">
+      <InternalLink href={href}>
+        <a>{children}</a>
+      </InternalLink>
+    </View>
   );
 }

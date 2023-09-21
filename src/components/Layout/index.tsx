@@ -1,8 +1,7 @@
 import Head from 'next/head';
 import SecondaryNav from '../SecondaryNav/index';
 import Footer from '../Footer/index';
-import { LayoutStyle } from './styles';
-import { Container } from '../Container';
+import Container from '../Container';
 import { useRouter } from 'next/router';
 import { GlobalNav, NavMenuItem } from '../GlobalNav/GlobalNav';
 import {

@@ -1,13 +1,4 @@
 import { forwardRef, useCallback, useState } from 'react';
-import {
-  FeedbackContainer,
-  VoteButton,
-  VoteButtonAfter,
-  VoteButtonsContainer,
-  FeedbackText,
-  FeedbackTextAfter,
-  ButtonStyles
-} from './styles';
 import { trackFeedbackSubmission } from '../../utils/track';
 import {
   ThumbsUpIcon,
@@ -16,6 +7,8 @@ import {
   ThumbsDownFilledIcon
 } from '../Icons';
 import ExternalLink from '../ExternalLink';
+
+import { Text, Button, Flex } from '@aws-amplify/ui-react';
 
 enum FeedbackState {
   START = 'START',
@@ -121,7 +114,7 @@ const Feedback = forwardRef(function Feedback({}, ref) {
   }, []);
 
   return (
-    <FeedbackContainer
+    <Flex
       id="feedback-container"
       ref={ref}
       aria-hidden={state == FeedbackState.UP ? true : false}
@@ -135,68 +128,62 @@ const Feedback = forwardRef(function Feedback({}, ref) {
                 aria-label={c.feedbackQuestion}
                 tabIndex={0}
               >
-                <FeedbackText>{c.feedbackQuestion}</FeedbackText>
-                <VoteButtonsContainer>
-                  <VoteButton
+                <Text>{c.feedbackQuestion}</Text>
+                <Flex>
+                  <Button
                     onClick={onYesVote}
                     aria-label="Yes"
                     role="button"
                     tabIndex={0}
                   >
                     <ThumbsUpIcon />
-                    <FeedbackText>Yes</FeedbackText>
-                  </VoteButton>
-                  <VoteButton
+                    <Text>Yes</Text>
+                  </Button>
+                  <Button
                     onClick={onNoVote}
                     aria-label="No"
                     role="button"
                     tabIndex={0}
                   >
                     <ThumbsDownIcon />
-                    <FeedbackText>No</FeedbackText>
-                  </VoteButton>
-                </VoteButtonsContainer>
+                    <Text>No</Text>
+                  </Button>
+                </Flex>
               </div>
             );
           case 'UP':
             return (
               <div className="up">
-                <VoteButtonsContainer className="up-response">
-                  <VoteButtonAfter className="up-response">
+                <Flex className="up-response">
+                  <Button className="up-response">
                     <ThumbsUpFilledIcon />
-                  </VoteButtonAfter>
-                  <FeedbackTextAfter className="up-response">
-                    {c.yesVoteResponse}
-                  </FeedbackTextAfter>
-                </VoteButtonsContainer>
+                  </Button>
+                  <Text className="up-response">{c.yesVoteResponse}</Text>
+                </Flex>
               </div>
             );
           case 'DOWN':
             return (
               <div className="down">
-                <VoteButtonsContainer className="down-response">
-                  <VoteButtonAfter className="down-response">
+                <Flex className="down-response">
+                  <Button className="down-response">
                     <ThumbsDownFilledIcon />
-                  </VoteButtonAfter>
-                  <FeedbackTextAfter className="down-response">
-                    {c.noVoteResponse}
-                  </FeedbackTextAfter>
-                </VoteButtonsContainer>
-                <FeedbackTextAfter className="cta">
-                  {c.noVoteCTA}
-                </FeedbackTextAfter>
-                <ButtonStyles>
+                  </Button>
+                  <Text className="down-response">{c.noVoteResponse}</Text>
+                </Flex>
+                <Text className="cta">{c.noVoteCTA}</Text>
+                <Button>
                   <ExternalLink href={c.buttonLink}>
                     {c.noVoteCTAButton}
                   </ExternalLink>
-                </ButtonStyles>
+                </Button>
               </div>
             );
           default:
             return <div></div>;
         }
       })()}
-    </FeedbackContainer>
+    </Flex>
   );
 });
 

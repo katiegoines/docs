@@ -1,35 +1,4 @@
-import styled from "@emotion/styled";
-
-export const TableContainer = styled.div`
-  overflow-x: auto;
-  margin-bottom: 1rem;
-`;
-
-export const Table = styled.table`
-  text-align: center;
-  width: 100%;
-
-  thead tr {
-    background-color: var(--bg-color-tertiary);
-  }
-  tbody tr th {
-    width: 5rem;
-  }
-`;
-
-export const Value = styled.th`
-  min-width: 9rem;
-  width: 9rem;
-`;
-
-export const Description = styled.th`
-  text-align: left;
-`;
-
-export const Project = styled.th`
-  min-width: 6rem;
-  width: 6rem;
-`;
+import { View, Table, TableHead } from '@aws-amplify/ui-react';
 
 export type FeatureFlags = Record<string, Section>;
 
@@ -40,8 +9,8 @@ export type Section = {
 
 export type FeatureFlag = {
   description: string;
-  type: "Feature" | "Release" | "Experimental";
-  valueType: "Boolean" | "Number" | "String";
+  type: 'Feature' | 'Release' | 'Experimental';
+  valueType: 'Boolean' | 'Number' | 'String';
   versionAdded: string;
   versionDeprecated?: string;
   deprecationDate?: string;
@@ -57,24 +26,24 @@ export type Value = {
   defaultExistingProject: boolean;
 };
 
-export default function FeatureFlagValues({values}) {
+export default function FeatureFlagValues({ values }) {
   return (
-    <TableContainer>
+    <View as="div">
       <Table>
         <thead>
           <tr>
-            <Value>Value</Value>
+            <TableHead>Value</TableHead>
             <th>Description</th>
-            <Project>
+            <TableHead>
               Default for
               <br />
               existing projects
-            </Project>
-            <Project>
+            </TableHead>
+            <TableHead>
               Default for
               <br />
               new projects
-            </Project>
+            </TableHead>
           </tr>
         </thead>
         <tbody>
@@ -84,14 +53,14 @@ export default function FeatureFlagValues({values}) {
                 <td>
                   <code>{value.value}</code>
                 </td>
-                <Description>{value.description}</Description>
-                <td>{value.defaultExistingProject ? "✅" : ""}</td>
-                <td>{value.defaultNewProject ? "✅" : ""}</td>
+                <TableHead>{value.description}</TableHead>
+                <td>{value.defaultExistingProject ? '✅' : ''}</td>
+                <td>{value.defaultNewProject ? '✅' : ''}</td>
               </tr>
             );
           })}
         </tbody>
       </Table>
-    </TableContainer>
+    </View>
   );
 }

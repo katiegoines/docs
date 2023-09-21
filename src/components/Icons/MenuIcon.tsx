@@ -1,19 +1,7 @@
-import { Icon } from '@aws-amplify/ui-react';
-import styled from '@emotion/styled';
-
-const MenuWrapper = styled.span`
-  stroke: currentColor;
-  stroke-width: 2;
-  cursor: pointer;
-  padding: 2px 0;
-  height: 22px;
-  svg {
-    vertical-align: top;
-  }
-`;
+import { Icon, View } from '@aws-amplify/ui-react';
 
 export const MenuIcon = ({ ariaLabel, onClick }) => (
-  <MenuWrapper>
+  <View as="span">
     <Icon
       ariaLabel={ariaLabel}
       onClick={onClick}
@@ -27,5 +15,5 @@ export const MenuIcon = ({ ariaLabel, onClick }) => (
         height: 16
       }}
     />
-  </MenuWrapper>
+  </View>
 );

@@ -1,28 +1,8 @@
-import styled from "@emotion/styled";
-
 import {
   WebComponentProps,
-  TableGenerator,
-} from "../../utils/ui-component-props.types";
-
-const Table = styled.table`
-  text-align: left;
-  width: 100%;
-  font-size: 0.875rem;
-  margin-bottom: 1rem;
-
-  thead tr {
-    background-color: var(--bg-color-tertiary);
-  }
-  tbody tr th {
-    width: 5rem;
-  }
-`;
-
-export const TableHeader = styled.div`
-  font-size: 1rem;
-  margin: 0.75rem 0;
-`;
+  TableGenerator
+} from '../../utils/ui-component-props.types';
+import { Table, TableHead } from '@aws-amplify/ui-react';
 
 /**
  * Both css and slots only document name and description, so we can share
@@ -76,7 +56,7 @@ const attrTableGenerator = (docs) => {
           <thead>
             <tr>
               <th colSpan={2}>
-                <TableHeader>{prop.name}</TableHeader>
+                <TableHead>{prop.name}</TableHead>
               </th>
             </tr>
           </thead>
@@ -120,5 +100,5 @@ const slotsTableGenerator = (docs) => {
 export const tableGeneratorMap: Record<WebComponentProps, TableGenerator> = {
   attr: attrTableGenerator,
   css: cssTableGenerator,
-  slots: slotsTableGenerator,
+  slots: slotsTableGenerator
 };

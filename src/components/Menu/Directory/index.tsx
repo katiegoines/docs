@@ -1,13 +1,7 @@
 import React from 'react';
 import { getProductDirectory } from '../../../utils/getLocalDirectory';
 import InternalLink from '../../InternalLink';
-import {
-  ArrowStyle,
-  DirectoryGroupHeaderStyle,
-  DirectoryGroupItemStyle,
-  DirectoryLinksStyle,
-  ProductRootLinkStyle
-} from './styles';
+
 import type { DirectoryItem } from '../../../directory/directory';
 import { Button, Icon, Flex, View } from '@aws-amplify/ui-react';
 
@@ -123,11 +117,11 @@ export default class Directory extends React.Component<DirectoryProps> {
     return (
       <div>
         <InternalLink href={productRoot.route}>
-          <ProductRootLinkStyle
+          <a
             isActive={this.props.url.split('/q')[0] === productRoot.route}
           >
             {productRoot.title}
-          </ProductRootLinkStyle>
+          </a>
         </InternalLink>
         {Object.entries(directory.items).map((folderName) => (
           <DirectoryGroup

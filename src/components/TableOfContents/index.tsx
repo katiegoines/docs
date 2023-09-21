@@ -1,16 +1,10 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 import getElementTop from '../../utils/get-element-top';
-import {
-  TOCStyle,
-  TOCInnerStyle,
-  H2AnchorStyle,
-  H3AnchorStyle,
-  HeaderStyle
-} from './styles';
 import { forwardRef, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { MQDesktop } from '../media';
 import { CloseIcon } from '../Icons';
+import { View, Heading } from '@aws-amplify/ui-react';
 
 const stickyHeaderHeight = 124;
 function scroll(hash) {
@@ -151,17 +145,17 @@ function TableOfContents({ children, title, buttonsRef }, ref) {
   };
 
   return (
-    <TOCStyle id="toc" ref={ref}>
-      <TOCInnerStyle>
+    <View as="div" id="toc" ref={ref}>
+      <View as="div">
         {!onDesktop && (
           <div className="mobileHeader">
             <h2>On this Page</h2>
             <CloseIcon onClick={closeToc} />
           </div>
         )}
-        <HeaderStyle>
-          <h4>{title}</h4>
-        </HeaderStyle>
+        <View as="div">
+          <Heading>{title}</Heading>
+        </View>
         {children.map(([name, id, level], index) => {
           const slugged = `#${id}`;
           const anchor = (
@@ -169,12 +163,11 @@ function TableOfContents({ children, title, buttonsRef }, ref) {
               <div>{name}</div>
             </a>
           );
-          if (level === 'h2')
-            return <H2AnchorStyle key={index}>{anchor}</H2AnchorStyle>;
-          else return <H3AnchorStyle key={index}>{anchor}</H3AnchorStyle>;
+          if (level === 'h2') return <Heading key={index}>{anchor}</Heading>;
+          else return <Heading key={index}>{anchor}</Heading>;
         })}
-      </TOCInnerStyle>
-    </TOCStyle>
+      </View>
+    </View>
   );
 }
 

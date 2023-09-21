@@ -1,15 +1,15 @@
 import Link from 'next/link';
-import { ActiveSwitchStyle, SwitchStyle } from './styles';
 import directory from '../../../directory/directory.mjs';
+import { Flex } from '@aws-amplify/ui-react';
 
 const Option = function({ href, title, isActive }) {
-  const SwitchStyle = isActive ? ActiveSwitchStyle : 'a';
+  const SwitchStyle = isActive ? 'a' : 'a';
   return (
     <div>
       <Link href={href} legacyBehavior>
-        <SwitchStyle href={href}>
+        <Flex href={href}>
           <span>{title}</span>
-        </SwitchStyle>
+        </Flex>
       </Link>
     </div>
   );
@@ -87,7 +87,7 @@ export function LibVersionSwitcher({
   };
 
   return (
-    <SwitchStyle>
+    <Flex>
       <Option
         href={leftOption.href}
         title={leftOption.title}
@@ -98,6 +98,6 @@ export function LibVersionSwitcher({
         title={rightOption.title}
         isActive={rightActive}
       />
-    </SwitchStyle>
+    </Flex>
   );
 }

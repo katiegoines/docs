@@ -15,8 +15,9 @@ import {
 import ExternalLink from '../ExternalLink';
 import InternalLink from '../InternalLink';
 import { useRouter } from 'next/router';
-import { Container } from '../Container';
+import Container from '../Container';
 import { parseLocalStorage } from '../../utils/parseLocalStorage';
+import { Flex, View } from '@aws-amplify/ui-react';
 
 import SearchBar from '../SearchBar';
 
@@ -26,9 +27,9 @@ export default function SecondaryNav() {
   const filterKeys = parseLocalStorage('filterKeys', {});
 
   return (
-    <HostStyle as="nav">
+    <View as="nav">
       <Container>
-        <SecondaryNavStyle id="secondary-nav">
+        <Flex id="secondary-nav">
           <div className="secondary-nav-links">
             {[
               {
@@ -99,7 +100,7 @@ export default function SecondaryNav() {
               const active = matchingRoots.some((root) => {
                 return path.startsWith(root);
               });
-              const LinkStyle = active ? LinkActiveStyle : LinkInactiveStyle;
+              const LinkStyle = active ? 'a' : 'a';
               if (external) {
                 return (
                   <ExternalLink href={url} key={label} graphic="black">
@@ -115,11 +116,11 @@ export default function SecondaryNav() {
               }
             })}
           </div>
-          <SearchBarContainer>
+          <View as="div">
             <SearchBar />
-          </SearchBarContainer>
-        </SecondaryNavStyle>
+          </View>
+        </Flex>
       </Container>
-    </HostStyle>
+    </View>
   );
 }

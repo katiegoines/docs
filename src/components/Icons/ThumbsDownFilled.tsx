@@ -1,8 +1,7 @@
-import { Icon } from '@aws-amplify/ui-react';
-import { FilledWrapper } from './ThumbsUpFilled';
+import { Icon, View } from '@aws-amplify/ui-react';
 
 export const ThumbsDownFilledIcon = () => (
-  <FilledWrapper>
+  <View as="span">
     <Icon
       ariaLabel="Thumbs down"
       viewBox={{
@@ -19,5 +18,5 @@ export const ThumbsDownFilledIcon = () => (
       ></path>
       <path d="M6 2H2v7h4"></path>
     </Icon>
-  </FilledWrapper>
+  </View>
 );

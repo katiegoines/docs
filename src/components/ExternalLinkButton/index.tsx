@@ -1,12 +1,12 @@
-import { Host, Container } from '../../styles/link-button-styles';
+import { View } from '@aws-amplify/ui-react';
 import ExternalLink from '../ExternalLink';
 
 export default function ExternalLinkButton({ href, children }) {
   return (
-    <Host>
+    <View as="div">
       <ExternalLink href={href}>
-        <Container>{children}</Container>
+        <a>{children}</a>
       </ExternalLink>
-    </Host>
+    </View>
   );
 }

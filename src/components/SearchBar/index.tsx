@@ -4,9 +4,9 @@ import algoliasearch from 'algoliasearch';
 
 import { Autocomplete } from './Autocomplete';
 import { SearchItem } from './SearchItem';
-import { Search } from './styles';
 
 import { useRouter } from 'next/router';
+import { View } from '@aws-amplify/ui-react';
 
 const appId = 'W6Q5N5WUDV';
 const apiKey = '953b9e801f385c3c689fc8e94690ab43';
@@ -19,7 +19,7 @@ function App() {
   const router = useRouter();
 
   return (
-    <Search aria-label="Search the Amplify docs site">
+    <View as="div" aria-label="Search the Amplify docs site">
       <Autocomplete
         placeholder="Search Docs"
         openOnFocus={false}
@@ -65,7 +65,7 @@ function App() {
           }
         }}
       />
-    </Search>
+    </View>
   );
 }
 

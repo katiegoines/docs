@@ -1,19 +1,20 @@
 import { Header, NavContent, SearchContainer } from './styles';
-import { Container } from '../Container';
+import Container from '../Container';
 import SearchBar from '../SearchBar';
 import React from 'react';
+import { Heading, View } from '@aws-amplify/ui-react';
 
 export default function UniversalNav({ blend }) {
   const backgroundColor = blend ? '' : 'color-orange-hv';
   return (
-    <Header>
+    <Heading>
       <Container backgroundColor={backgroundColor}>
-        <NavContent>
-          <SearchContainer>
+        <View as="div">
+          <View as="div">
             <SearchBar />
-          </SearchContainer>
-        </NavContent>
+          </View>
+        </View>
       </Container>
-    </Header>
+    </Heading>
   );
 }

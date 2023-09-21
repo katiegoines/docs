@@ -1,5 +1,5 @@
 import ExternalLink from '../../ExternalLink';
-import { RepoActionsStyle } from './styles';
+import { Flex } from '@aws-amplify/ui-react';
 
 const getLabelForPath = (path) => {
   if (path.startsWith('/cli')) {
@@ -52,7 +52,7 @@ export default function RepoActions({ directoryPath, url }) {
   const shouldShowEditLink = directoryPath !== '/ChooseFilterPage';
   const editLink = createEditLink(directoryPath);
   return (
-    <RepoActionsStyle>
+    <Flex>
       <ExternalLink href={feedbackLink}>
         <img src="/assets/flag.svg" alt="" width="24" height="24" />
         <span aria-label="Leave feedback for this page on GitHub">
@@ -65,6 +65,6 @@ export default function RepoActions({ directoryPath, url }) {
           <span aria-label="Edit this page on GitHub">Edit</span>
         </ExternalLink>
       )}
-    </RepoActionsStyle>
+    </Flex>
   );
 }

@@ -1,6 +1,6 @@
-import { Toggle, Divider } from './styles';
 import { useEffect, forwardRef } from 'react';
 import { MenuIcon, TOCIcon } from '../Icons';
+import { Flex, Divider } from '@aws-amplify/ui-react';
 
 function MobileMenuIcons({ menuRef, contentsRef }, ref) {
   useEffect(() => {
@@ -37,11 +37,11 @@ function MobileMenuIcons({ menuRef, contentsRef }, ref) {
   };
 
   return (
-    <Toggle ref={ref}>
+    <Flex ref={ref}>
       <MenuIcon ariaLabel="Open Menu" onClick={showMenu} />
       <Divider />
       <TOCIcon ariaLabel="Open Table of Contents" onClick={showTOC} />
-    </Toggle>
+    </Flex>
   );
 }
 

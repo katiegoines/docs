@@ -2,7 +2,6 @@ import { Grid } from 'theme-ui';
 import Head from 'next/head';
 import { useEffect } from 'react';
 
-import Hero from '../components/Hero';
 import LandingHeroCTA from '../components/LandingHeroCTA';
 import { Container } from '../components/Container';
 import { Card, CardDetail, CardGraphic } from '../components/Card';
@@ -19,6 +18,8 @@ import {
   SOCIAL_LINKS
 } from '../utils/globalnav';
 import React from 'react';
+
+import { Flex } from '@aws-amplify/ui-react';
 
 const meta = {
   title: 'Amplify Docs',
@@ -79,14 +80,14 @@ const Page = () => {
         currentSite={'Docs'}
       />
       <SecondaryNav />
-      <Hero>
+      <Flex>
         <h1 className="font-weight-300">Amplify Documentation</h1>
         <p>
           Learn how to use Amplify to develop and deploy cloud-powered mobile
           and web apps
         </p>
         <LandingHeroCTA />
-      </Hero>
+      </Flex>
 
       <Container backgroundColor="color-off-white">
         <div className="padding-top-lg padding-bottom-lg padding-horizontal-md">

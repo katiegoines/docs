@@ -1,27 +1,27 @@
-import Link from 'next/link';
-import { Footer, RightFooter, LeftFooter, Social, Legal } from './styles';
-import { Container } from '../Container';
+import Container from '../Container';
 import ExternalLink from '../ExternalLink';
+import InternalLink from '../InternalLink';
 import * as links from '../../constants/links';
 import * as img from '../../constants/img';
 import { forwardRef } from 'react';
+import { Flex } from '@aws-amplify/ui-react';
 
 // eslint-disable-next-line no-empty-pattern
 const DocsFooter = forwardRef(function DocsFooter({}, ref) {
   return (
     <Container backgroundColor="color-ink-hv">
-      <Footer ref={ref}>
-        <LeftFooter>
+      <footer ref={ref}>
+        <Flex>
           <img alt="" src={img.AMPLIFY.lightSrc} />
           <div>
             <h3>Amplify</h3>
-            <Link href="/start">Getting Started</Link>
+            <InternalLink href="/start">Getting Started</InternalLink>
             <ExternalLink href={links.DISCORD}>Community Chat</ExternalLink>
-            <Link href="/contribute">Contribute</Link>
+            <InternalLink href="/contribute">Contribute</InternalLink>
           </div>
-        </LeftFooter>
-        <RightFooter>
-          <Social>
+        </Flex>
+        <Flex>
+          <Flex>
             <ExternalLink anchorTitle="Twitter" href={links.TWITTER}>
               <img alt={img.TWITTER.alt} src={img.TWITTER.src} />
             </ExternalLink>
@@ -31,8 +31,8 @@ const DocsFooter = forwardRef(function DocsFooter({}, ref) {
             <ExternalLink anchorTitle="GitHub" href={links.GITHUB}>
               <img alt={img.GITHUB.alt} src={img.GITHUB.lightSrc} />
             </ExternalLink>
-          </Social>
-          <Legal>
+          </Flex>
+          <Flex>
             <span>
               <div>
                 <p>
@@ -58,9 +58,9 @@ const DocsFooter = forwardRef(function DocsFooter({}, ref) {
                 are not endorsed by or affiliated with Google LLC.
               </div>
             </span>
-          </Legal>
-        </RightFooter>
-      </Footer>
+          </Flex>
+        </Flex>
+      </footer>
     </Container>
   );
 });

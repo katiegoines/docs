@@ -1,10 +1,3 @@
-import {
-  MenuHeaderStyle,
-  MenuStyle,
-  MenuBreakStyle,
-  MenuBodyStyle,
-  LastUpdatedStyle
-} from './styles';
 import React, {
   forwardRef,
   useEffect,
@@ -20,6 +13,7 @@ import FilterSelect from './FilterSelect';
 import { LibVersionSwitcher } from './VersionSwitcher';
 import { useLastUpdatedDatesContext } from '../LastUpdatedProvider';
 import { CloseIcon } from '../Icons';
+import { Flex, View, Text, Divider } from '@aws-amplify/ui-react';
 
 type MenuProps = {
   filters: string[];
@@ -110,10 +104,10 @@ function Menu(props: MenuProps, ref) {
 
   if (isOpen) {
     return (
-      <MenuStyle ref={menuRef}>
+      <Flex ref={menuRef}>
         <div>
           <div>
-            <MenuHeaderStyle>
+            <Flex>
               {!onDesktop && (
                 <div className="mobileHeader">
                   <h2>Table of Contents</h2>
@@ -129,8 +123,8 @@ function Menu(props: MenuProps, ref) {
                   url={props.url}
                 />
               )}
-            </MenuHeaderStyle>
-            <MenuBodyStyle>
+            </Flex>
+            <View>
               {showLibVersionSwitcher && (
                 <LibVersionSwitcher
                   url={props.url}
@@ -139,14 +133,14 @@ function Menu(props: MenuProps, ref) {
                 />
               )}
               <Directory filterKey={props.filterKey} url={props.url} />
-              <MenuBreakStyle />
-              <LastUpdatedStyle id="page-last-updated">
+              <Divider />
+              <Text id="page-last-updated">
                 {displayLastUpdatedString(lastUpdatedDate)}
-              </LastUpdatedStyle>
-            </MenuBodyStyle>
+              </Text>
+            </View>
           </div>
         </div>
-      </MenuStyle>
+      </Flex>
     );
   }
   return <MenuOpenButton openMenu={openMenu} />;

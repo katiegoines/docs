@@ -1,14 +1,11 @@
-import {
-  NextPreviousContainerStyle,
-  NextPreviousLinkStyle,
-  NextPreviousTextStyle,
-} from "./styles";
+
 import InternalLink from "../InternalLink";
 import {
   getChapterDirectory,
   isProductRoot,
 } from "../../utils/getLocalDirectory";
-import type { DirectoryItem } from "../Menu/Directory";
+import type DirectoryItem from "../Menu/Directory";
+import { Flex, View, Text } from "@aws-amplify/ui-react";
 
 type Directory = {
   items: DirectoryItem[];
@@ -17,13 +14,13 @@ type Directory = {
 function Prev(item: DirectoryItem) {
   return (
     <InternalLink href={item.route}>
-      <NextPreviousLinkStyle>
+      <View as="span">
         <img src="/assets/arrow-left.svg" alt=""  width="8" height="56"/>
-        <NextPreviousTextStyle isPrevious={true}>
+        <Text isPrevious={true}>
           <span>previous</span>
           <h4>{item.title}</h4>
-        </NextPreviousTextStyle>
-      </NextPreviousLinkStyle>
+        </Text>
+      </View>
     </InternalLink>
   );
 }
@@ -31,13 +28,13 @@ function Prev(item: DirectoryItem) {
 function Next(item: DirectoryItem) {
   return (
     <InternalLink href={item.route}>
-      <NextPreviousLinkStyle>
-        <NextPreviousTextStyle isPrevious={false}>
+      <View as="span">
+        <Text isPrevious={false}>
           <span>next</span>
           <h4>{item.title}</h4>
-        </NextPreviousTextStyle>
+        </Text>
         <img src="/assets/arrow-right.svg" alt="" width="8" height="56"/>
-      </NextPreviousLinkStyle>
+      </View>
     </InternalLink>
   );
 }
@@ -67,9 +64,9 @@ export default function NextPrevious({url, filterKey}) {
   }
 
   return (
-    <NextPreviousContainerStyle>
+    <Flex>
       {itemIndex !== 0 ? Prev(items[itemIndex - 1]) : <div />}
       {itemIndex != items.length - 1 ? Next(items[itemIndex + 1]) : <div />}
-    </NextPreviousContainerStyle>
+    </Flex>
   );
 }

@@ -1,5 +1,4 @@
 import { useRef, useState, createElement, useEffect } from 'react';
-import { Details, Summary } from './styles';
 import { Expand, DeepDive } from './icons';
 import { trackExpanderOpen } from '../../utils/track';
 import {

@@ -1,23 +1,7 @@
-import { Icon } from '@aws-amplify/ui-react';
-import styled from '@emotion/styled';
-
-export const FilledWrapper = styled.span`
-  svg {
-    vertical-align: top;
-    path {
-      stroke: currentColor;
-      stroke-width: 1.5px;
-      stroke-linejoin: round;
-      fill: none;
-      &.filled {
-        fill: currentColor;
-      }
-    }
-  }
-`;
+import { Icon, View } from '@aws-amplify/ui-react';
 
 export const ThumbsUpFilledIcon = () => (
-  <FilledWrapper>
+  <View as="span">
     <Icon
       ariaLabel="Thumbs up"
       viewBox={{
@@ -34,5 +18,5 @@ export const ThumbsUpFilledIcon = () => (
       ></path>
       <path d="M6 14H2V7h4"></path>
     </Icon>
-  </FilledWrapper>
+  </View>
 );

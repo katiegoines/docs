@@ -1,8 +1,8 @@
-import {Toggle} from "./styles";
-import {useState, useEffect} from "react";
-import ensureMenuScrolledIntoView from "../../utils/ensure-menu-scrolled-into-view";
+import { useState, useEffect } from 'react';
+import ensureMenuScrolledIntoView from '../../utils/ensure-menu-scrolled-into-view';
+import { View } from '@aws-amplify/ui-react';
 
-export default function SidebarLayoutToggle({menuRef, children}) {
+export default function SidebarLayoutToggle({ menuRef, children }) {
   const [inView, setInView] = useState(false);
 
   useEffect(() => {
@@ -22,7 +22,8 @@ export default function SidebarLayoutToggle({menuRef, children}) {
     }
   };
   return (
-    <Toggle
+    <View
+      as="div"
       onClick={() => {
         toggleView();
         ensureMenuScrolledIntoView();
@@ -30,6 +31,6 @@ export default function SidebarLayoutToggle({menuRef, children}) {
       inView={inView}
     >
       {children}
-    </Toggle>
+    </View>
   );
 }
