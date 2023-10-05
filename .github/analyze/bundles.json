@@ -7598,12 +7598,12 @@
         "static/chunks/10599-f805c897827f5a41.js",
         "static/chunks/1533-c4a166cbadaf71ec.js",
         "static/css/0d50591502059f2e.css",
-        "static/chunks/pages/lib/auth/getting-started/q/platform/[platform]-a3525a52dadc70e1.js"
+        "static/chunks/pages/lib/auth/getting-started/q/platform/[platform]-5a90fd6b2da2ef04.js"
       ],
-      "gzipSize": 32660,
+      "gzipSize": 32659,
       "parsedSize": 318784,
       "statSize": 494689,
-      "totalGzipSize": 245680,
+      "totalGzipSize": 245679,
       "totalParsedSize": 1235982,
       "totalStatSize": 4297432
     },
@@ -7866,7 +7866,7 @@
         "static/chunks/10599-f805c897827f5a41.js",
         "static/chunks/96396-031bb82ab2a223b8.js",
         "static/css/0d50591502059f2e.css",
-        "static/chunks/pages/lib/auth/signin_with_custom_flow/q/platform/[platform]-57b4664b5446ce18.js"
+        "static/chunks/pages/lib/auth/signin_with_custom_flow/q/platform/[platform]-dba5ba6ea2163a74.js"
       ],
       "gzipSize": 22885,
       "parsedSize": 342919,
@@ -8013,7 +8013,7 @@
         "static/chunks/4432-b74696fdcb5600da.js",
         "static/chunks/10599-f805c897827f5a41.js",
         "static/css/0d50591502059f2e.css",
-        "static/chunks/pages/lib/client-configuration/configuring-amplify-categories/q/platform/[platform]-476556c53105d2b4.js"
+        "static/chunks/pages/lib/client-configuration/configuring-amplify-categories/q/platform/[platform]-f2235d9c042f6e50.js"
       ],
       "gzipSize": 7937,
       "parsedSize": 96983,

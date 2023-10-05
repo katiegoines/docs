@@ -8,6 +8,12 @@ module.exports = {
     const fs = require('fs');
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
     const data = JSON.parse(jsonString);
-    console.log(data);
+    const filtered = data.pages.filter((page) => {
+      page.label === '/' ||
+        page.label === '/cli' ||
+        page.label === '/cli/start/install' ||
+        page.label === '/lib/auth/getting-started/q/platform/[platform]';
+    });
+    console.log(filtered);
   }
 };
