@@ -12,7 +12,7 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0 https://github.com/actions/checkout/commit/f43a0e5ff2bd294095638e18286ca9a3d1956744
       - name: Run bundle-analyzer
-        run: ANALYZE=true yarn next-build
+        run: yarn analyze
       - name: Get bundle size of chunks
         uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1 https://github.com/actions/github-script/commit/d7906e4ad0b1822421a7e6a35d5ca353c962f410
         id: set-bundle-sizes
@@ -25,3 +25,34 @@ jobs:
       - name: Fail if bundle size exceeds threshold
         if: ${{ steps.bundle-size-increase.outputs.result > 0 }}
         run: exit 1
+
+
+
+#         name: Check Bundle Size
+# on:
+#   pull_request:
+#     branches: [main]
+# jobs:
+#   build-base:
+#     name: Build base
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Checkout
+#       uses: actions/checkout@v2
+#       with:
+#         ref: ${{ github.base_ref }}
+  
+#     - name: Install dependencies
+#       run: npm ci
+#       env:
+#         NODE_AUTH_TOKEN: ${{secrets.GITHUB_TOKEN}}
+  
+#     - name: Build
+#       run: npm run build-demo
+  
+#     - name: Upload base stats.json
+#       uses: actions/upload-artifact@v2
+#       with:
+#         name: base
+#         path: ./demo/demo-dist/stats.json
+#         retention-days: 1

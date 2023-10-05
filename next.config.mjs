@@ -109,7 +109,12 @@ export default async (phase, { defaultConfig }) => {
     const withNextBundleAnalyzer = require('next-bundle-analyzer')({
       format: ['json'],
       reportDir: '../.github/analyze',
-      filter: { pages: true }
+      filter: {
+        chunks: false,
+        commonChunks: false,
+        metadata: false,
+        pages: true
+      }
     });
     nextConfig = withNextBundleAnalyzer(nextConfig);
   }
