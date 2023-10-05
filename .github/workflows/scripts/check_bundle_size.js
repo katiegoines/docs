@@ -9,11 +9,8 @@ module.exports = {
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
     const data = JSON.parse(jsonString);
     const filtered = data.pages.filter((page) => {
-      page.label === '/' ||
-        page.label === '/cli' ||
-        page.label === '/cli/start/install' ||
-        page.label === '/lib/auth/getting-started/q/platform/[platform]';
+      console.log(page);
     });
-    console.log(filtered);
+    // console.log(filtered);
   }
 };
