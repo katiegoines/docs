@@ -109,20 +109,20 @@ export default async (phase, { defaultConfig }) => {
     const withNextBundleAnalyzer = require('next-bundle-analyzer')({
       format: ['json'],
       reportDir: '../.github/analyze',
-      filter: {
-        chunks: false,
-        commonChunks: false,
-        metadata: false,
-        pages: true
+      json: {
+        filter: {
+          pages: [
+            { label: '/' },
+            { label: '/cli/start/install' },
+            { label: '/lib/auth/getting-started/q/platform/[platform]' },
+            { label: '/start' },
+            { label: '/cli' }
+          ]
+        }
       }
     });
     nextConfig = withNextBundleAnalyzer(nextConfig);
   }
-
-  // // eslint-disable-next-line @typescript-eslint/no-var-requires
-  // const withBundleAnalyzer = require('next-bundle-analyzer')({
-  //   enabled: process.env.ANALYZE === 'true'
-  // });
 
   return nextConfig;
 };
