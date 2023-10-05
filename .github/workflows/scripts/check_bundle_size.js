@@ -6,7 +6,9 @@ module.exports = {
     } = context;
 
     const fs = require('fs');
-    const jsonString = fs.readFileSync('../../analyze/bundles.json');
+    const jsonString = fs.readFileSync('.github/analyze/bundles.json');
     const data = JSON.parse(jsonString);
+    console.log(data);
   }
 };
+.github/analyze/bundles.json
