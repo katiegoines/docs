@@ -111,13 +111,7 @@ export default async (phase, { defaultConfig }) => {
       reportDir: '../.github/analyze',
       json: {
         filter: {
-          pages: [
-            { label: '/' },
-            { label: '/cli/start/install' },
-            { label: '/lib/auth/getting-started/q/platform/[platform]' },
-            { label: '/start' },
-            { label: '/cli' }
-          ]
+          pages: true
         }
       }
     });
