@@ -1,5 +1,5 @@
 module.exports = {
-  checkBundleSize: ({ github, context, core }) => {
+  getBaseBundleSizes: ({ github, context, core }) => {
     const {
       issue: { number: issue_number },
       repo: { owner, repo }
