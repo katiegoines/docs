@@ -30,5 +30,5 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { checkBundleSize } = require('./.github/workflows/scripts/check_bundle_size.js');
-            checkBundleSize({github, context, fetch, ignore});
+            checkBundleSize({github, context, core});
 
