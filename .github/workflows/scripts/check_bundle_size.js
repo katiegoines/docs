@@ -8,6 +8,5 @@ module.exports = {
     const fs = require('fs');
     const jsonString = fs.readFileSync('../../analyze/bundles.json');
     const data = JSON.parse(jsonString);
-    console.log(data);
   }
 };

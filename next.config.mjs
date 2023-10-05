@@ -108,7 +108,8 @@ export default async (phase, { defaultConfig }) => {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const withNextBundleAnalyzer = require('next-bundle-analyzer')({
       format: ['json'],
-      reportDir: '../analyze'
+      reportDir: '../.github/analyze',
+      filter: { pages: true }
     });
     nextConfig = withNextBundleAnalyzer(nextConfig);
   }
