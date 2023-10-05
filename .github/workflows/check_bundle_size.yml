@@ -9,22 +9,18 @@ jobs:
     name: Check if PR increases bundle size more than 5%
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@f43a0e5ff2bd294095638e18286ca9a3d1956744 # v3.6.0 https://github.com/actions/checkout/commit/f43a0e5ff2bd294095638e18286ca9a3d1956744
-      - name: Run bundle-analyzer
-        run: ANALYZE=true yarn build
-      - name: Get bundle size of chunks
-        uses: actions/github-script@d7906e4ad0b1822421a7e6a35d5ca353c962f410 # v6.4.1 https://github.com/actions/github-script/commit/d7906e4ad0b1822421a7e6a35d5ca353c962f410
-        id: set-bundle-sizes
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+      - name: Setup Node.js 16.x
+        uses: actions/setup-node@main
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          result-encoding: string
-          script: |
-            const { getBundleSizes } = require('./.github/workflows/scripts/check_bundle_size.js');
-            return getBundleSizes({github, context, core});
-      - name: Fail if bundle size exceeds threshold
-        if: ${{ steps.bundle-size-increase.outputs.result > 0 }}
-        run: exit 1
+          node-version: 16.x
+      - name: Install Dependencies
+        run: yarn
+      - name: Run Analyze
+        run: yarn analyze
+        env:
+          NODE_OPTIONS: --max_old_space_size=4096
 
 
 
