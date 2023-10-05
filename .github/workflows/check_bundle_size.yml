@@ -22,18 +22,6 @@ jobs:
           script: |
             const { getBundleSizes } = require('./.github/workflows/scripts/check_bundle_size.js');
             return getBundleSizes({github, context, core});
-      - name: Install npm package ignore
-        if: ${{ steps.set-added-files-count.outputs.result > 0 }}
-        run: yarn add ignore@5.2.4 -W # help verify CODEOWNERS
-      - name: Check file against CODEOWNERS
-        if: ${{ steps.set-added-files-count.outputs.result > 0 }}
-        uses: actions/github-script@v6.4.0
-        env:
-          CURRENT_BRANCH: ${{ github.head_ref }}
-          CURRENT_REPO: ${{ github.repository }}
-        with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
-          script: |
-            const ignore = require('ignore');
-            const { validateCodeowners } = require('./.github/workflows/scripts/check_for_new_files.js');
-            validateCodeowners({github, context, fetch, ignore});
+      - name: Fail if bundle size exceeds threshold
+        if: ${{ steps.bundle-size-increase.outputs.result > 0 }}
+        run: exit 1

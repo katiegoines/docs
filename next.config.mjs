@@ -13,7 +13,6 @@ const mdxRenderer = `
 `;
 
 const shouldAnalyzeBundles = process.env.ANALYZE === 'true';
-console.log(shouldAnalyzeBundles);
 
 export default async (phase, { defaultConfig }) => {
   // eslint-disable-next-line @typescript-eslint/no-var-requires
@@ -108,7 +107,8 @@ export default async (phase, { defaultConfig }) => {
   if (shouldAnalyzeBundles) {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const withNextBundleAnalyzer = require('next-bundle-analyzer')({
-      format: ['json']
+      format: ['json'],
+      reportDir: '../analyze'
     });
     nextConfig = withNextBundleAnalyzer(nextConfig);
   }
