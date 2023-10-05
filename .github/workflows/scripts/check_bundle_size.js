@@ -11,4 +11,3 @@ module.exports = {
     console.log(data);
   }
 };
-.github/analyze/bundles.json
