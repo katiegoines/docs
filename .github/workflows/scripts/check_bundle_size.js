@@ -1,6 +1,6 @@
 module.exports = {
-  baseBundleSizes: this.checkBaseBundleSize(),
-  headBundleSizes: this.checkHeadBundleSizes(),
+  baseBundleSizes: {},
+  headBundleSizes: {},
   checkBaseBundleSize: () => {
     const fs = require('fs');
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
@@ -26,7 +26,7 @@ module.exports = {
         });
       }
     });
-    return baseBundleSizes;
+    this.baseBundleSizes = baseBundleSizes;
   },
 
   checkHeadBundleSize: () => {
@@ -54,7 +54,7 @@ module.exports = {
         });
       }
     });
-    return headBundleSizes;
+    this.headBundleSizes = headBundleSizes;
   },
 
   compareBundles: () => {
