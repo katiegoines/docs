@@ -1,6 +1,4 @@
 module.exports = {
-  baseBundleSizes: {},
-  headBundleSizes: {},
   checkBaseBundleSize: () => {
     const fs = require('fs');
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
@@ -26,7 +24,7 @@ module.exports = {
         });
       }
     });
-    this.baseBundleSizes = baseBundleSizes;
+    return baseBundleSizes;
   },
 
   checkHeadBundleSize: () => {
@@ -54,12 +52,10 @@ module.exports = {
         });
       }
     });
-    this.headBundleSizes = headBundleSizes;
+    return headBundleSizes;
   },
 
-  compareBundles: () => {
-    console.log(this.baseBundleSizes, this.headBundleSizes);
-  }
+  compareBundles: () => {}
 };
 
 // get base bundle sizes, get pr bundle sizes, compare, fail if difference is +1.05%

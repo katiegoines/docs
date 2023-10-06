@@ -49,4 +49,6 @@ jobs:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             const { compareBundles } = require('./.github/workflows/scripts/check_bundle_size.js');
-            return compareBundles()
+            const baseBundles = ${{steps.base-bundle-sizes.outputs.result}}
+            const headBundles = ${{steps.head-bundle-sizes.outputs.result}}
+            return await compareBundles(baseBundles, headBundles)
