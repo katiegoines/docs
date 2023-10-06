@@ -91,14 +91,14 @@
         "static/chunks/4432-b74696fdcb5600da.js",
         "static/chunks/10599-f805c897827f5a41.js",
         "static/css/0d50591502059f2e.css",
-        "static/chunks/pages/cli-e6298e182c0ff9e7.js"
+        "static/chunks/pages/cli-d9d9cb002e433e3b.js"
       ],
-      "gzipSize": 3008,
-      "parsedSize": 8540,
-      "statSize": 16201,
-      "totalGzipSize": 210208,
-      "totalParsedSize": 849697,
-      "totalStatSize": 3707995
+      "gzipSize": 3320,
+      "parsedSize": 31355,
+      "statSize": 45653,
+      "totalGzipSize": 210520,
+      "totalParsedSize": 872512,
+      "totalStatSize": 3737447
     },
     {
       "label": "/cli-legacy/graphql-transformer/auth",
