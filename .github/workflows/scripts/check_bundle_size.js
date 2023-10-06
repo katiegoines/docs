@@ -41,7 +41,7 @@ module.exports = {
     const headBundleSizes = [];
     data.pages.filter((page) => {
       if (pagesToCheck.includes(page.label)) {
-        baseBundleSizes.push({
+        headBundleSizes.push({
           page: page.label,
           gzipSize: page.gzipSize,
           parsedSize: page.parsedSize,
