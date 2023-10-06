@@ -55,7 +55,7 @@ module.exports = {
     return headBundleSizes;
   },
 
-  compareBundles: (baseBundleSizes, headBundleSizes) => {
+  compareBundles: ({ baseBundleSizes, headBundleSizes }) => {
     console.log(baseBundleSizes, headBundleSizes);
   }
 };
