@@ -1,4 +1,6 @@
 module.exports = {
+  baseBundleSizes: this.checkBaseBundleSize(),
+  headBundleSizes: this.headBundleSizes(),
   checkBaseBundleSize: () => {
     const fs = require('fs');
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
@@ -24,8 +26,7 @@ module.exports = {
         });
       }
     });
-    console.log(baseBundleSizes);
-    return baseBundleSizes;
+    this.baseBundleSizes = baseBundleSizes;
   },
 
   checkHeadBundleSize: () => {
@@ -53,12 +54,11 @@ module.exports = {
         });
       }
     });
-    console.log(headBundleSizes);
-    return headBundleSizes;
+    this.headBundleSizes = headBundleSizes;
   },
 
-  compareBundles: (baseBundleSizes, headBundleSizes) => {
-    console.log(baseBundleSizes, headBundleSizes);
+  compareBundles: () => {
+    console.log(this.baseBundleSizes, this.headBundleSizes);
   }
 };
 
