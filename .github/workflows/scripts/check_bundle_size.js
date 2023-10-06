@@ -55,7 +55,9 @@ module.exports = {
     return headBundleSizes;
   },
 
-  compareBundles: () => {}
+  compareBundles: (baseBundles, headBundles) => {
+    console.log(baseBundles, headBundles);
+  }
 };
 
 // get base bundle sizes, get pr bundle sizes, compare, fail if difference is +1.05%
