@@ -45,6 +45,7 @@ jobs:
             return checkHeadBundleSize();
       - name: Compare bundle page bundle sizes
         uses: actions/github-script@v6.4.0
+        id: compare-bundles
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -53,5 +54,5 @@ jobs:
             const headBundles = ${{steps.head-bundle-sizes.outputs.result}}
             return await compareBundles(baseBundles, headBundles)
       - name: Fail if bundle size growth exceeds 5% on any of the selected pages
-        if: ${{ steps.compareBundles.outputs.result == 'fail' }}
+        if: ${{ steps.compare-bundles.outputs.result == 'fail' }}
         run: exit 1
