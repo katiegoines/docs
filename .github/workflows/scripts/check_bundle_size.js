@@ -24,6 +24,7 @@ module.exports = {
         });
       }
     });
+    console.log(baseBundleSizes);
     return baseBundleSizes;
   },
 
@@ -52,6 +53,7 @@ module.exports = {
         });
       }
     });
+    console.log(headBundleSizes);
     return headBundleSizes;
   },
 
