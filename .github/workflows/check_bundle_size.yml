@@ -52,3 +52,6 @@ jobs:
             const baseBundles = ${{steps.base-bundle-sizes.outputs.result}}
             const headBundles = ${{steps.head-bundle-sizes.outputs.result}}
             return await compareBundles(baseBundles, headBundles)
+      - name: Fail if bundle size growth exceeds 5% on any of the selected pages
+        if: ${{ steps.compareBundles.outputs.result == 'fail' }}
+        run: exit 1

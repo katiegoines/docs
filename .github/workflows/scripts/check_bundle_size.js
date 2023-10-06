@@ -56,7 +56,13 @@ module.exports = {
   },
 
   compareBundles: (baseBundles, headBundles) => {
-    console.log(baseBundles, headBundles);
+    for (let i = 0; i < baseBundles.length; ) {
+      if (baseBundles[i] !== headBundles[i]) {
+        if (baseBundles[i].parsedSize * 1.05 < headBundles[i].parsedSize) {
+          return 'fail';
+        }
+      }
+    }
   }
 };
 
