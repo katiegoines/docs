@@ -35,6 +35,7 @@ module.exports = {
             basePage.page == headPage.page &&
             basePage.parsedSize * 1.05 < headPage.parsedSize
           ) {
+            const log = `The bundle size of ${basePage.page} increased by more than 5% with this PR`;
             console.log(
               basePage.page,
               ': ',
@@ -45,6 +46,7 @@ module.exports = {
               basePage.page == headPage.page,
               basePage.parsedSize * 1.05 < headPage.parsedSize
             );
+            console.log(log);
             return true;
           }
         });
