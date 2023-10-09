@@ -34,12 +34,19 @@ module.exports = {
         baseBundles[i].parsedSize,
         headBundles[i].parsedSize
       );
-      baseBundles.forEach((page) => {
-        headBundles.forEach((prPage) => {
+      baseBundles.forEach((basePage) => {
+        headBundles.forEach((headPage) => {
           if (
-            page.page == prPage.page &&
-            page.parsedSize * 1.05 < prPage.parsedSize
+            basePage.page == headPage.page &&
+            basePage.parsedSize * 1.05 < headPage.parsedSize
           ) {
+            console.log(
+              basePage.page,
+              basePage.parsedSize,
+              headPage.page,
+              headPage,
+              parsedSize
+            );
             return true;
           }
         });
