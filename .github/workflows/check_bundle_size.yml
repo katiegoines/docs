@@ -36,7 +36,7 @@ jobs:
       - name: Checkout PR branch
         uses: actions/checkout@v3
         with:
-          ref: bundle-size-checker
+          ref: ${{ github.head_ref }}
       - name: Setup Node.js 16.x
         uses: actions/setup-node@main
         with:
