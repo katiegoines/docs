@@ -20,6 +20,10 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Run build and analyze base bundle sizes
+        env:
+          CURRENT_BRANCH: ${{ github.base_ref }}
+          CURRENT_REPO: ${{ github.repository }}
+          NODE_OPTIONS: --max_old_space_size=4096
         run: ANALYZE=true yarn next-build
       - name: Check base bundle size of select pages
         uses: actions/github-script@v6.4.0
@@ -40,6 +44,10 @@ jobs:
       - name: Install dependencies
         run: yarn
       - name: Run build and analyze head bundle sizes
+        env:
+          CURRENT_BRANCH: ${{ github.head_ref }}
+          CURRENT_REPO: ${{ github.repository }}
+          NODE_OPTIONS: --max_old_space_size=4096
         run: ANALYZE=true yarn next-build
       - name: Check head bundle size of select pages
         uses: actions/github-script@v6.4.0
