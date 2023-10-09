@@ -44,8 +44,7 @@ module.exports = {
               basePage.page,
               basePage.parsedSize,
               headPage.page,
-              headPage,
-              parsedSize
+              headPage.parsedSize
             );
             return true;
           }
