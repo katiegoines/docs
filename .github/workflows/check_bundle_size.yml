@@ -12,7 +12,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v3
         with:
-          ref: bundle-size-checker-main
+          ref: main
       - name: Setup Node.js 16.x
         uses: actions/setup-node@main
         with:
@@ -68,5 +68,5 @@ jobs:
             const headBundles = ${{steps.head-bundle-sizes.outputs.result}}
             return await compareBundles(baseBundles, headBundles)
       - name: Fail if bundle size growth exceeds 5% on any of the selected pages
-        if: ${{ steps.compare-bundles.outputs.result == 'fail' }}
+        if: ${{ steps.compare-bundles.outputs.result }}
         run: exit 1

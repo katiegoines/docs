@@ -24,7 +24,6 @@ module.exports = {
         });
       }
     });
-    console.log(baseBundleSizes);
     return baseBundleSizes;
   },
 
@@ -53,8 +52,6 @@ module.exports = {
         });
       }
     });
-    console.log(headBundleSizes);
-
     return headBundleSizes;
   },
 
@@ -67,11 +64,14 @@ module.exports = {
       );
       if (baseBundles[i] !== headBundles[i]) {
         if (baseBundles[i].parsedSize * 1.05 < headBundles[i].parsedSize) {
-          return 'fail';
+          console.log(
+            'bundle size math',
+            baseBundles[i].parsedSize * 1.05,
+            baseBundles[i].parsedSize * 1.05 < headBundles[i].parsedSize
+          );
+          return false;
         }
       }
     }
   }
 };
-
-// get base bundle sizes, get pr bundle sizes, compare, fail if difference is +1.05%
