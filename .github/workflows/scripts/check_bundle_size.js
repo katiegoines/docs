@@ -34,16 +34,16 @@ module.exports = {
         baseBundles[i].parsedSize,
         headBundles[i].parsedSize
       );
-      if (baseBundles[i] !== headBundles[i]) {
-        if (baseBundles[i].parsedSize * 1.05 < headBundles[i].parsedSize) {
-          console.log(
-            'bundle size math',
-            baseBundles[i].parsedSize * 1.05,
-            baseBundles[i].parsedSize * 1.05 < headBundles[i].parsedSize
-          );
-          return false;
-        }
-      }
+      baseBundles.forEach((page) => {
+        headBundles.forEach((prPage) => {
+          if (
+            page.page == prPage.page &&
+            page.parsedSize * 1.05 < prPage.parsedSize
+          ) {
+            return true;
+          }
+        });
+      });
     }
   }
 };
