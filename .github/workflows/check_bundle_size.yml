@@ -12,7 +12,7 @@ jobs:
       - name: Checkout main branch
         uses: actions/checkout@v3
         with:
-          ref: main
+          ref: bundle-size-checker-main
       - name: Setup Node.js 16.x
         uses: actions/setup-node@main
         with:
