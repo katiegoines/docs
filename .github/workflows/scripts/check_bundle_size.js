@@ -29,11 +29,6 @@ module.exports = {
 
   compareBundles: (baseBundles, headBundles) => {
     for (let i = 0; i < baseBundles.length; i++) {
-      console.log(
-        baseBundles[i].page,
-        baseBundles[i].parsedSize,
-        headBundles[i].parsedSize
-      );
       baseBundles.forEach((basePage) => {
         headBundles.forEach((headPage) => {
           if (
@@ -42,9 +37,13 @@ module.exports = {
           ) {
             console.log(
               basePage.page,
+              ': ',
               basePage.parsedSize,
               headPage.page,
-              headPage.parsedSize
+              ': ',
+              headPage.parsedSize,
+              basePage.page == headPage.page,
+              basePage.parsedSize * 1.05 < headPage.parsedSize
             );
             return true;
           }
