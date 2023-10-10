@@ -28,29 +28,27 @@ module.exports = {
   },
 
   compareBundles: (baseBundles, headBundles) => {
-    for (let i = 0; i < baseBundles.length; i++) {
-      baseBundles.forEach((basePage) => {
-        headBundles.forEach((headPage) => {
-          if (
-            basePage.page == headPage.page &&
+    baseBundles.forEach((basePage) => {
+      headBundles.forEach((headPage) => {
+        if (
+          basePage.page == headPage.page &&
+          basePage.parsedSize * 1.05 < headPage.parsedSize
+        ) {
+          const log = `The bundle size of ${basePage.page} increased by more than 5% with this PR`;
+          console.log(
+            basePage.page,
+            ': ',
+            basePage.parsedSize,
+            headPage.page,
+            ': ',
+            headPage.parsedSize,
+            basePage.page == headPage.page,
             basePage.parsedSize * 1.05 < headPage.parsedSize
-          ) {
-            const log = `The bundle size of ${basePage.page} increased by more than 5% with this PR`;
-            console.log(
-              basePage.page,
-              ': ',
-              basePage.parsedSize,
-              headPage.page,
-              ': ',
-              headPage.parsedSize,
-              basePage.page == headPage.page,
-              basePage.parsedSize * 1.05 < headPage.parsedSize
-            );
-            console.log(log);
-            return false;
-          }
-        });
+          );
+          console.log(log);
+          return true;
+        }
       });
-    }
+    });
   }
 };
