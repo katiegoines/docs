@@ -66,7 +66,7 @@ jobs:
             const { compareBundles } = require('./.github/workflows/scripts/check_bundle_size.js');
             const baseBundles = ${{steps.base-bundle-sizes.outputs.result}}
             const headBundles = ${{steps.head-bundle-sizes.outputs.result}}
-            return await compareBundles(baseBundles, headBundles)
+            return compareBundles(baseBundles, headBundles)
       - name: Fail if bundle size growth exceeds 5% on any of the selected pages
         if: ${{ steps.compare-bundles.outputs.result }}
         run: exit 1
