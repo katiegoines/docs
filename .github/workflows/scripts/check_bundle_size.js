@@ -34,19 +34,19 @@ module.exports = {
           basePage.page == headPage.page &&
           basePage.parsedSize * 1.05 < headPage.parsedSize
         ) {
-          console.log(
-            basePage.page,
-            ': ',
-            basePage.parsedSize,
-            headPage.page,
-            ': ',
-            headPage.parsedSize,
-            basePage.page == headPage.page,
-            basePage.parsedSize * 1.05 < headPage.parsedSize
-          );
-          console.log(
-            `The bundle size of ${basePage.page} increased by more than 5% with this PR`
-          );
+          // console.log(
+          //   basePage.page,
+          //   ': ',
+          //   basePage.parsedSize,
+          //   headPage.page,
+          //   ': ',
+          //   headPage.parsedSize,
+          //   basePage.page == headPage.page,
+          //   basePage.parsedSize * 1.05 < headPage.parsedSize
+          // );
+          // console.log(
+          //   `The bundle size of ${basePage.page} increased by more than 5% with this PR`
+          // );
           return true;
         }
       });
