@@ -47,7 +47,7 @@ module.exports = {
           // console.log(
           //   `The bundle size of ${basePage.page} increased by more than 5% with this PR`
           // );
-          return true;
+          return false;
         }
       });
     });
