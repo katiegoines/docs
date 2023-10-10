@@ -47,7 +47,7 @@ module.exports = {
               basePage.parsedSize * 1.05 < headPage.parsedSize
             );
             console.log(log);
-            return true;
+            return 'fail';
           }
         });
       });
