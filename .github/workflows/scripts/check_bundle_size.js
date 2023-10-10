@@ -28,28 +28,20 @@ module.exports = {
   },
 
   compareBundles: (baseBundles, headBundles) => {
+    const fails = [];
     baseBundles.forEach((basePage) => {
       headBundles.forEach((headPage) => {
         if (
           basePage.page == headPage.page &&
           basePage.parsedSize * 1.05 < headPage.parsedSize
         ) {
-          // console.log(
-          //   basePage.page,
-          //   ': ',
-          //   basePage.parsedSize,
-          //   headPage.page,
-          //   ': ',
-          //   headPage.parsedSize,
-          //   basePage.page == headPage.page,
-          //   basePage.parsedSize * 1.05 < headPage.parsedSize
-          // );
-          // console.log(
-          //   `The bundle size of ${basePage.page} increased by more than 5% with this PR`
-          // );
-          return false;
+          fails.push(basePage.page);
         }
       });
     });
+    console.log(
+      `The bundle size of ${fails} increased by more than 5% with this PR`
+    );
+    return fails.length;
   }
 };
