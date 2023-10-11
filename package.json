@@ -136,7 +136,7 @@
     "spellcheck-diff": "git diff --name-only --cached | awk \"/src.*\\.mdx/{print}\" | npx cspell --no-must-find-files --file-list stdin",
     "build": "node tasks/generate-sitemap.mjs && next build",
     "start": "next start",
-    "build:release": "yarn build && next-image-export-optimizer --exportFolderPath client/www/next-build",
+    "build:release": "yarn build && next-image-export-optimizer --exportFolderPath .next",
     "next-build": "next build",
     "next-start": "next start",
     "prepare": "husky install",
