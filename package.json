@@ -25,7 +25,6 @@
     "array-flatten": "^3.0.0",
     "aws-amplify": "^5.0.5",
     "copy-to-clipboard": "^3.2.1",
-    "cross-env": "^7.0.3",
     "dotenv": "^16.0.0",
     "emotion": "^10.0.23",
     "eslint-config-next": "^13.2.4",
@@ -87,7 +86,6 @@
     "puppeteer": "^20.8.2",
     "rollup-plugin-node-polyfills": "^0.2.1",
     "sass": "^1.54.8",
-    "serve": "^14.2.1",
     "tiny-glob": "0.2.9",
     "ts-jest": "^26.0.3",
     "ts-node": "^8.5.0",
@@ -136,12 +134,12 @@
     "dev": "next dev",
     "spellcheck": "cspell \"src/**/*.mdx\" --no-progress",
     "spellcheck-diff": "git diff --name-only --cached | awk \"/src.*\\.mdx/{print}\" | npx cspell --no-must-find-files --file-list stdin",
-    "build": "node tasks/generate-sitemap.mjs && next build && next export -o client/www/next-build",
+    "build": "node tasks/generate-sitemap.mjs && next build",
+    "start": "next start",
     "build:release": "yarn build && next-image-export-optimizer --exportFolderPath client/www/next-build",
     "next-build": "next build",
     "next-start": "next start",
-    "amplify:submissionsLambda": "cd amplify/backend/function/submissionsLambda/src && yarn install && yarn build && yarn test",
     "prepare": "husky install",
-    "analyze": "ANALYZE=true yarn next-build"
+    "analyze": "ANALYZE=true yarn build"
   }
 }
