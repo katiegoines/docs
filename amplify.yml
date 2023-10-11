@@ -10,8 +10,6 @@ frontend:
         - echo "BUILD_ENV=$BUILD_ENV" >> .env.custom
         - NODE_ENV=production yarn build:release
         - if [ "${AWS_BRANCH}" = "main" ]; then node tasks/build-algolia-search.mjs; fi
-        - allfiles=$(ls -al ./.next/standalone/**/*.js)
-        - npx esbuild $allfiles --minify --outdir=.next/standalone --platform=node --target=node16 --format=cjs --allow-overwrite
   artifacts:
     # IMPORTANT - Please verify your build output directory
     baseDirectory: .next
