@@ -140,6 +140,6 @@
     "next-build": "next build",
     "next-start": "next start",
     "prepare": "husky install",
-    "analyze": "ANALYZE=true yarn next-build"
+    "analyze": "ANALYZE=true yarn build"
   }
 }
