@@ -12,7 +12,7 @@ frontend:
         - if [ "${AWS_BRANCH}" = "main" ]; then node tasks/build-algolia-search.mjs; fi
   artifacts:
     # IMPORTANT - Please verify your build output directory
-    baseDirectory: /client/www/next-build
+    baseDirectory: .next
     files:
       - '**/*'
   cache:
