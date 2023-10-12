@@ -112,7 +112,6 @@ export default async (phase, { defaultConfig }) => {
         }
       ];
     },
-    // eslint-disable-next-line @typescript-eslint/require-await
     async redirects() {
       return [
         {
