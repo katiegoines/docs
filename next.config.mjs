@@ -44,7 +44,7 @@ export default async (phase, { defaultConfig }) => {
   });
 
   let nextConfig = withMDX({
-    distDir: '.next',
+    // distDir: '.next',
     env: {
       BUILD_ENV: process.env.BUILD_ENV,
       nextImageExportOptimizer_imageFolderPath: 'public',
