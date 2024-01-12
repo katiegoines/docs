@@ -1,6 +1,5 @@
 module.exports = {
   checkBundleSize: () => {
-    console.log('are you there god, its me, console.log')
     const fs = require('fs');
     const jsonString = fs.readFileSync('.github/analyze/bundles.json');
     const data = JSON.parse(jsonString);
@@ -38,9 +37,9 @@ module.exports = {
           basePage.parsedSize < headPage.parsedSize
         ) {
           const fail = {
-            page: basePage.page,
+            name: basePage.page,
             baseSize: basePage.parsedSize,
-            headSize: headPage.parsedize
+            headSize: headPage.parsedSize
           }
           fails.push(fail);
         }
@@ -48,8 +47,10 @@ module.exports = {
     });
 
     if (fails.length > 0) {
+      const list = fails.map((page) => `${page.name} (from ${page.baseSize} to ${page.headSize})`)
+      
       console.log(
-        `The bundle size of ${fails.page} increased from ${fails.baseSize} to ${fails.headSize} with this PR`
+        `Bundle size increased with this PR for the following tracked pages: ${list}`
       );
     }
     return fails.length;
