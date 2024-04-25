@@ -4,9 +4,20 @@ export const meta = {
   title: 'Collections',
   description: 'Collections',
   platforms: [
-                'javascript',
-                'react'
-              ]
+    'javascript',
+    'react', 
+    'nextjs'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'javascript',
+        'react', 
+        'nextjs'
+      ],
+      canonicalPath: '/javascript/build-ui/uibuilder/collections/'
+    }
+  ]
 };
 
 export const getStaticPaths = async () => {

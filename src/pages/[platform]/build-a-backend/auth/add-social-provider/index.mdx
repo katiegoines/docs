@@ -2,8 +2,7 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export const meta = {
   title: 'Add social provider sign-in',
-  description:
-    'Learn how to setup social sign-in providers like Facebook, Google, Amazon, or Sign in with Apple.',
+  description: 'Learn how to setup social sign-in providers like Facebook, Google, Amazon, or Sign in with Apple.',
   platforms: [
     'javascript',
     'react-native',
@@ -14,6 +13,23 @@ export const meta = {
     'nextjs',
     'react',
     'vue'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'vue',
+        'angular',
+        'javascript'
+      ],
+      canonicalPath: '/javascript/build-a-backend/auth/add-social-provider/'
+    },
+    {
+      platforms: [
+        'react',
+        'nextjs'
+      ],
+      canonicalPath: '/react/build-a-backend/auth/add-social-provider/'
+    }
   ]
 };
 
@@ -497,7 +513,7 @@ function App() {
           getUser();
           break;
         case "signInWithRedirect_failure":
-          setError("An error has ocurred during the OAuth flow.");
+          setError("An error has occurred during the OAuth flow.");
           break;
         case "customOAuthState":
           setCustomState(payload.data); // this is the customState provided on signInWithRedirect function
@@ -563,7 +579,7 @@ function App() {
           getUser();
           break;
         case "signInWithRedirect_failure":
-          setError("An error has ocurred during the OAuth flow.");
+          setError("An error has occurred during the OAuth flow.");
           break;
         case "customOAuthState":
           setCustomState(payload.data); // this is the customState provided on signInWithRedirect function
@@ -643,7 +659,7 @@ function App(): JSX.Element {
           getUser();
           break;
         case "signInWithRedirect_failure":
-          setError("An error has ocurred during the OAuth flow.");
+          setError("An error has occurred during the OAuth flow.");
           break;
         case "customOAuthState":
           setCustomState(payload.data); // this is the customState provided on signInWithRedirect function
@@ -703,7 +719,7 @@ function App() {
           getUser();
           break;
         case "signInWithRedirect_failure":
-          setError("An error has ocurred during the OAuth flow.");
+          setError("An error has occurred during the OAuth flow.");
           break;
         case "customOAuthState":
           setCustomState(payload.data);
@@ -818,7 +834,7 @@ function App() {
           getUser();
           break;
         case "signInWithRedirect_failure":
-          setError("An error has ocurred during the Oauth flow.");
+          setError("An error has occurred during the Oauth flow.");
           break;
         case "customOAuthState":
           setCustomState(payload.data);
@@ -894,7 +910,7 @@ function App() {
           getUser();
           break;
         case 'signInWithRedirect_failure':
-          setError('An error has ocurred during the Oauth flow.');
+          setError('An error has occurred during the Oauth flow.');
           break;
         case 'customOAuthState':
           setCustomState(payload.data);

@@ -17,19 +17,20 @@ The example below highlights the supported authorization strategies with a `oidc
 
 ```ts title="amplify/data/resource.ts"
 // amplify/data/resource.ts
-import { a, defineData, type ClientSchema } from "@aws-amplify/backend";
+import { a, defineData, type ClientSchema } from '@aws-amplify/backend';
 
 const schema = a.schema({
-  Todo: a.model({
-    content: a.string(),
-  })
-  .authorization([
-    a.allow.owner("oidc").identityClaim("user_id"),
-    a.allow.private("oidc"),
-    a.allow
-      .specificGroups(["testGroupName"], "oidc")
-      .withClaimIn("user_groups"),
-  ]),
+  Todo: a
+    .model({
+      content: a.string(),
+    })
+    .authorization(allow => [
+      allow.owner('oidc').identityClaim('user_id'),
+      allow.authenticated('oidc'),
+      allow
+        .groups(['testGroupName'], 'oidc')
+        .withClaimIn('user_groups'),
+    ]),
 });
 
 export type Schema = ClientSchema<typeof schema>;
@@ -37,13 +38,29 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
+    defaultAuthorizationMode: 'oidc',
     oidcAuthorizationMode: {
-      oidcProviderName: "oidc-provider-name",
-      oidcIssuerUrl: "https://example.com",
-      clientId: "client-id",
+      oidcProviderName: 'oidc-provider-name',
+      oidcIssuerUrl: 'https://example.com',
+      clientId: 'client-id',
       tokenExpiryFromAuthInSeconds: 300,
       tokenExpireFromIssueInSeconds: 600,
     },
   },
+});
+```
+
+In your application, you can perform CRUD operations against the model using `client.models.<model-name>` by specifying the `oidc` auth mode.
+
+```ts
+import { generateClient } from 'aws-amplify/data';
+import type { Schema } from '../amplify/data/resource'; // Path to your backend resource definition
+
+const client = generateClient<Schema>();
+
+const { errors, data: todos } = await client.models.Todo.list({
+  // highlight-start
+  authMode: "oidc",
+  // highlight-end
 });
 ```

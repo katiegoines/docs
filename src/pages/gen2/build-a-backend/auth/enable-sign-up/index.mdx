@@ -42,20 +42,21 @@ Below is a high-level overview of the workflows for sign-up, sign-in, and sign-o
 
 User attributes such as `email` are used to identify your users. These are set up when you configure your Cognito User Pool and cannot be renamed or deleted after they are added. You can modify your backend authentication resource to include additional User attributes.
 
-```diff title="amplify/auth/resource.ts"
-// amplify/auth/resource.ts
+```ts title="amplify/auth/resource.ts"
 import { defineAuth } from '@aws-amplify/backend';
 
 export const auth = defineAuth({
   loginWith: {
     email: true,
   },
-+ userAttributes: {
-+   birthdate: {
-+     required: false,
-+     mutable: false,
-+   },
-+ },
+// highlight-start
+  userAttributes: {
+    birthdate: {
+      required: false,
+      mutable: false,
+    },
+  },
+// highlight-end
 });
 ```
 
@@ -173,8 +174,8 @@ Using password policy in your `amplify/auth/resource.ts` file, you can customize
 ```ts title="amplify/backend.ts"
 // amplify/backend.ts
 import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource.js';
-import { data } from './data/resource.js';
+import { auth } from './auth/resource';
+import { data } from './data/resource';
 
 const backend = defineBackend({
   auth,
@@ -339,8 +340,8 @@ Guest access is enabled by default for your Amplify Auth resources. You can over
 ```ts title="amplify/backend.ts"
 // amplify/backend.ts
 import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource.js';
-import { data } from './data/resource.js';
+import { auth } from './auth/resource';
+import { data } from './data/resource';
 
 const backend = defineBackend({
   auth,

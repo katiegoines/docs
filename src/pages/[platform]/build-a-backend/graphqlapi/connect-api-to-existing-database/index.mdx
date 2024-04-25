@@ -2,10 +2,34 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export const meta = {
   title: 'Connect API to existing MySQL or PostgreSQL database',
-  description:
-    'Learn how to connect your API to an existing MySQL or PostgreSQL database.',
-    platforms: ['javascript', 'react', 'nextjs', 'angular', 'vue', 'react-native', 'flutter', 'swift', 'android']
-
+  description: 'Learn how to connect your API to an existing MySQL or PostgreSQL database.',
+  platforms: [
+    'javascript',
+    'react',
+    'nextjs',
+    'angular',
+    'vue',
+    'react-native',
+    'flutter',
+    'swift',
+    'android'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'android',
+        'flutter',
+        'javascript',
+        'react-native',
+        'vue',
+        'swift',
+        'react',
+        'angular',
+        'nextjs'
+      ],
+      canonicalPath: '/javascript/build-a-backend/graphqlapi/connect-api-to-existing-database/'
+    }
+  ]
 };
 
 export const getStaticPaths = async () => {
@@ -51,13 +75,28 @@ This feature is not yet available in the Asia Pacific (Hong Kong, ap-east-1) or 
 
 </Callout>
 
+<BlockSwitcher>
+<Block name="Systems Manager">
 First, place your database connection information (hostname, username, password, port, and database name) into Systems Manager, each as a `SecureString`.
 
 Go to the Systems Manager console, navigate to Parameter Store, and click "Create Parameter". Create five different SecureStrings: one each for the hostname of your database server, the username and password to connect, the database port, and the database name.
 
 Your Systems Manager configuration should look something like this:
 
-![Storing Database Credentials in SSM](/images/storing-db-creds-in-ssm.png)
+![A screenshot of an AWS Systems Manager console page titled "Parameter Store". The page shows a list of parameters with names like "/amplify-cdk-app/username", "/amplify-cdk-app/password", and "/amplify-cdk-app/hostname" indicating database connection details. Each parameter is of Tier "Standard" and typed as "SecureString". The last modified date is displayed for each parameter.](/images/storing-db-creds-in-ssm.png)
+</Block>
+<Block name="Secrets Manager">
+First, place your database connection information (hostname, username, password, port, and database name) into Secrets Manager.
+
+Go to the Secrets Manager console, navigate to Secrets, and click "Store a new secret". You may create the secret in any manner as long as there are `username` and `password` keys defined.
+
+![A screenshot of a page in the Secrets Manager console titled "Secret value info". The screenshot shows an example of a secret's keys and values in a table including "username", "password", "engine", "host", "port", and "dbClusterIdentifier".](/images/storing-db-creds-in-secrets-manager.png)
+
+Optionally, you can decide whether to encrypt the secret using the KMS key that Secrets Manager creates or a customer managed KMS key that you create.
+
+You can also configure a rotation schedule and create a Lambda function or choose an existing Lambda function from your account to rotate the database credentials automatically.
+</Block>
+</BlockSwitcher>
 
 Install the following package to add the Amplify GraphQL API construct to your dependencies:
 
@@ -65,25 +104,28 @@ Install the following package to add the Amplify GraphQL API construct to your d
 npm install @aws-amplify/graphql-api-construct
 ```
 
-Create a new `schema.graphql` file within your CDK app’s `lib/` folder that includes the APIs you want to expose. Define your GraphQL object types, queries, and mutations to match the APIs you wish to expose. For example, define object types for database tables, queries to fetch data from those tables, and mutations to modify those tables.
+Create a new `schema.sql.graphql` file within your CDK app’s `lib/` folder that includes the APIs you want to expose. Define your GraphQL object types, queries, and mutations to match the APIs you wish to expose. For example, define object types for database tables, queries to fetch data from those tables, and mutations to modify those tables.
 
 ```graphql
-type Blog {
+type Post {
   id: Int!
   title: String!
+  content: String!
+  published: Boolean
+  publishedDate: AWSDate @refersTo(name: "published_date")
 }
 
 type Query {
-  listBlogs(contains: String!): [Blog]
+  searchPosts(contains: String!): [Post]
     @sql(
-      statement: "SELECT * FROM blogs WHERE title LIKE CONCAT('%', :contains, '%');"
+      statement: "SELECT * FROM posts WHERE title LIKE CONCAT('%', :contains, '%');"
     )
     @auth(rules: [{ allow: public }])
 }
 
 type Mutation {
-  createBlog(title: String!): AWSJSON
-    @sql(statement: "INSERT INTO blogs (title) VALUES (:title);")
+  createPost(title: String! content: String!): AWSJSON
+    @sql(statement: "INSERT INTO posts (title, content) VALUES (:title, :content);")
     @auth(rules: [{ allow: public }])
 }
 ```
@@ -104,17 +146,21 @@ import {
   AmplifyGraphqlApi,
   AmplifyGraphqlDefinition
 } from '@aws-amplify/graphql-api-construct';
+
+import path from 'path';
 ```
 
 In the main stack class, add the following code to define a new GraphQL API. Replace `stack` with the name of your stack instance (often referenced via `this`):
+<BlockSwitcher>
+<Block name="Systems Manager">
 
 ```ts
 new AmplifyGraphqlApi(stack, 'SqlBoundApi', {
   apiName: 'MySqlBoundApi',
   definition: AmplifyGraphqlDefinition.fromFilesAndStrategy(
-    [path.join(__dirname, 'schema.graphql')],
+    [path.join(__dirname, 'schema.sql.graphql')],
     {
-      name: 'MyBlogSiteDatabase',
+      name: 'MySQLSchemaDefinition',
       dbType: 'MYSQL',
       vpcConfiguration: {
         vpcId: 'vpc-123456',
@@ -138,10 +184,53 @@ new AmplifyGraphqlApi(stack, 'SqlBoundApi', {
     }
   ),
   authorizationModes: {
-    apiKeyConfig: { expires: cdk.Duration.days(7) }
+    defaultAuthorizationMode: 'API_KEY',
+    apiKeyConfig: {
+      expires: cdk.Duration.days(30)
+    }
   }
 });
 ```
+
+</Block>
+<Block name="Secrets Manager">
+
+```ts
+new AmplifyGraphqlApi(this, 'SqlBoundApi', {
+  apiName: 'MySqlBoundApi',
+  definition: AmplifyGraphqlDefinition.fromFilesAndStrategy(
+    [path.join(__dirname, 'schema.sql.graphql')],
+    {
+      name: 'MySQLSchemaDefinition',
+      dbType: 'MYSQL',
+      vpcConfiguration: {
+        vpcId: 'vpc-123456',
+        securityGroupIds: ['sg-123', 'sg-456'],
+        subnetAvailabilityZoneConfig: [
+          { subnetId: 'sn-123456', availabilityZone: 'us-east-1a' },
+          { subnetId: 'sn-987654', availabilityZone: 'us-east-1b' },
+        ],
+      },
+      dbConnectionConfig: {
+        databaseName: 'database',
+        port: 3306,
+        hostname: 'database-1-instance-1.id.region.rds.amazonaws.com',
+        secretArn:
+          'arn:aws:secretsmanager:Region1:123456789012:secret:MySecret-a1b2c3',
+      },
+    }
+  ),
+  authorizationModes: {
+    defaultAuthorizationMode: 'API_KEY',
+    apiKeyConfig: {
+      expires: cdk.Duration.days(30),
+    },
+  },
+});
+```
+
+</Block>
+</BlockSwitcher>
 
 The API will have an API key enabled for authorization.
 
@@ -149,7 +238,7 @@ Before deploying, make sure to:
 
 - Set a value for `name`. This will be used to name the AppSync DataSource itself, plus any associated resources like resolver Lambdas. This name must be unique across all schema definitions in a GraphQL API.
 
-- Change the `dbType` to match your database engine. This is the type of the SQL database used to process model operations for this definition.Supported engines are `"MYSQL"` or `"POSTGRES"`.
+- Change the `dbType` to match your database engine. This is the type of the SQL database used to process model operations for this definition. Supported engines are `"MYSQL"` or `"POSTGRES"`.
 
 - Update the SSM parameter paths within `dbConnectionConfig` to point to those existing in your AWS account. These are the parameters the SQL Lambda will use to connect to the database.
 
@@ -240,7 +329,7 @@ First, update your GraphQL schema file to reference a SQL file name without the 
 ```graphql
 type Query {
   getPublishedPosts(start: AWSDate, end: AWSDate): [Post]
-    @sql(reference: "getPublishedPostsByRange")
+    @sql(reference: "getPublishedPostsByDateRange")
     @auth(rules: [{ allow: public }])
 }
 ```
@@ -248,7 +337,7 @@ type Query {
 Next, create a new `lib/sql-statements` folder and add any custom queries or mutations as SQL files. For example, you could create different `.sql` files for different queries:
 
 ```sql
--- lib/sql-statements/getPublishedPostsByRange.sql
+-- lib/sql-statements/getPublishedPostsByDateRange.sql
 SELECT p.id, p.title, p.content, p.published_date
 FROM posts p
 WHERE p.published = 1
@@ -259,19 +348,22 @@ LIMIT 10
 ```
 
 ```sql
--- lib/sql-statements/getBlogById.sql
-SELECT * FROM blogs WHERE id = :id;
+-- lib/sql-statements/getPostById.sql
+SELECT * FROM posts WHERE id = :id;
 ```
 
 Then, you can import the `SQLLambdaModelDataSourceStrategyFactory` which helps define the datasource strategy from the custom `.sql` files you've created.
 
 ```js
 import { SQLLambdaModelDataSourceStrategyFactory } from '@aws-amplify/graphql-api-construct';
+import path from 'path';
+import fs from 'fs';
 ```
 
 In your `lib/<your-project-name>-stack.ts` file, read from the `sql-statements/` folder and add them as custom SQL statements to your Amplify GraphQL API:
 
 ```js
+
 // Define custom SQL statements folder path
 const sqlStatementsPath = path.join(__dirname, 'sql-statements');
 
@@ -294,9 +386,10 @@ const sqlStrategy = SQLLambdaModelDataSourceStrategyFactory.fromCustomSqlFiles(
   }
 );
 
-const amplifyApi = new AmplifyGraphqlApi(this, 'AmplifyApi', {
+
+const amplifyApi = new AmplifyGraphqlApi(this, 'SqlBoundApi', {
   definition: AmplifyGraphqlDefinition.fromFilesAndStrategy(
-    path.join(__dirname, 'schema.graphql'),
+    [path.join(__dirname, 'schema.sql.graphql')],
     sqlStrategy
   ),
   authorizationModes: {
@@ -332,7 +425,7 @@ For reference, you define a GraphQL query by adding a new field under a `type Qu
 type Query {
   searchPostsByTitle(title: String): [Post]
     @sql(
-      statement: "SELECT * FROM Post WHERE title LIKE CONCAT('%', :title, '%');"
+      statement: "SELECT * FROM posts WHERE title LIKE CONCAT('%', :title, '%');"
     )
     @auth(rules: [{ allow: public }])
 }
@@ -358,7 +451,7 @@ If you want to return the result of the SQL statement, you can use `AWSJSON` as 
 
 ```graphql
 type Mutation {
-  publishPosts: AWSJSON @sql(statement: "UPDATE Post SET published = 1;")
+  publishPosts: AWSJSON @sql(statement: "UPDATE posts SET published = 1;")
     @auth(rules: [{ allow: public }])
 }
 ```
@@ -428,24 +521,51 @@ type Mutation {
 
 ## Apply authorization rules
 
+### Model level authorization rules
+
 The `@auth` directive can be used to restrict access to data and operations by specifying authorization rules. It allows granular access control over the GraphQL API based on the user's identity and attributes. You can for example, limit a query or mutation to only logged-in users via an `@auth(rules: [{ allow: private }])` rule or limit access to only users of the "Admin" group via an `@auth(rules: [{ allow: groups, groups: ["Admin"] }])` rule.
 
 All model-level authorization rules are supported for Amplify GraphQL schemas generated from MySQL and PostgreSQL databases.
 
-<Callout warning>**Limitation:** Field level auth rules are not supported.</Callout>
-
 In the example below, public users authorized via API Key are granted unrestricted access to all posts.
 
-Add the following auth rule to the `Blog` model within the `schema.sql.graphql` file:
+Add the following auth rule to the `Post` model within the `schema.sql.graphql` file:
 
 ```graphql
-type Blog @model @refersTo(name: "blogs") @auth(rules: [{ allow: public }]) {
+type Post @model @refersTo(name: "posts") @auth(rules: [{ allow: public }]) {
   id: String! @primaryKey
   title: String!
+  content: String!
 }
 ```
 
-For more information on each rule please refer to our documentation on [Authorization rules](/[platform]/build-a-backend/graphqlapi/customize-authorization-rules/).
+For more information on each rule please refer to our documentation on [Authorization rules](/[platform]/build-a-backend/graphqlapi/customize-authorization-rules).
+
+### Field-level authorization rules
+
+Field level auth rules are also supported for Amplify GraphQL schemas generated from MySQL and PostgreSQL databases.
+
+In the example below, unauthenticated users can read post data but only the owner of the post can perform operations on the `published` field.
+
+```graphql
+type Post
+  @model
+  @refersTo(name: "posts")
+  @auth(rules: [
+    { allow: public, operations: [read] },
+    { allow: owner }
+    ]) {
+  id: String! @primaryKey
+  title: String!
+  content: String!
+  published: Boolean
+  // highlight-start
+    @auth(rules: [{ allow: owner }])
+  // highlight-end
+}
+```
+
+For more information on field-level auth rules please refer to our documentation on [Field-level authorization rules](/[platform]/build-a-backend/graphqlapi/customize-authorization-rules/#field-level-authorization-rules).
 
 ## Deploy your API
 
@@ -631,7 +751,7 @@ input AMPLIFY {
 - type Ingredient @refersTo(name: "Ingredients") @model {
 + type Ingredient
 +   @refersTo(name: "Ingredients")
-+   @model 
++   @model
 +   @auth(rules: [{ allow: public }]) {
   id: Int! @refersTo(name: "ingredient_id") @primaryKey
   name: String!
@@ -671,14 +791,14 @@ To rename models and fields, you can use the `@refersTo` directive to map the mo
 
 By default, the Amplify CLI singularizes each model name using PascalCase and field names that are either snake_case or kebab-case will be converted to camelCase.
 
-In the example below, the Post model in the GraphQL schema is now mapped to the posts table in the database schema. Also, the isPublished is now mapped to the published column on the posts table.
+In the example below, the Post model in the GraphQL schema is now mapped to the posts table in the database schema. Also, the `isPublished` is now mapped to the `published` column on the posts table.
 
 ```graphql
 type Post @refersTo(name: "posts") @model {
   id: String! @primaryKey
   title: String!
   content: String!
-  isPublished: Boolean @refersTo(name: "is-published")
+  isPublished: Boolean @refersTo(name: "published")
   publishedDate: AWSDate @refersTo(name: "published_date")
 }
 ```
@@ -693,11 +813,13 @@ Relationships that query across DynamoDB and SQL data sources are currently not 
 
 </Callout>
 
+Assume that you have `users`, `blogs`, and `posts` tables in your database schema. The following examples demonstrate how you might create different types of relationships between them. Use them as references for creating relationships between the models in your own schema.
+
 #### Has One relationship
 
 Create a one-directional one-to-one relationship between two models using the `@hasOne` directive.
 
-In the example below, a User has a single Profile.
+In the example below, a User has a single Blog.
 
 ```graphql
 type User
@@ -707,7 +829,7 @@ type User
   id: String! @primaryKey
   name: String!
   owner: String
-  profile: Profile @hasOne(references: ["userId"])
+  blog: Blog @hasOne(references: ["userId"])
 }
 ```
 
@@ -728,6 +850,7 @@ type Post @model {
   id: String! @primaryKey
   title: String!
   content: String!
+  blogId: String! @refersTo(name: "blog_id")
 }
 ```
 
@@ -879,7 +1002,7 @@ Unlike MySQL, PostgreSQL does support date time or timestamp values with an offs
 | Name         | Supported | Model Level | Field Level | Description |
 |--------------|:---------:|:-----------:|:-----------:|-------------|
 | `@model`     | ✅        | ✅          | ❌          | Creates a datasource and resolver for a table.            |
-| `@auth`      | ✅        | ✅          | ❌          | Allows access to data based on a set of authorization methods and operations. |
+| `@auth`      | ✅        | ✅          | ✅       | Allows access to data based on a set of authorization methods and operations. |
 | `@primaryKey`| ✅        | ❌          | ✅          | Sets a field to be the primary key. |
 | `@index`     | ✅        | ❌          | ✅          | Defines an index on a table.         |
 | `@default`   | ✅        | ❌          | ✅          | Sets the default value for a column.         |

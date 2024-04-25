@@ -2,11 +2,21 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 
 export const meta = {
   title: 'Customize action buttons (Submit, Cancel, Clear, Reset)',
-  description:
-    'Amplify Studio generated forms come with three action buttons: **Submit**, **Cancel**, and **Clear** or **Reset**, depending on whether the form creates or updates a record.',
+  description: 'Amplify Studio generated forms come with three action buttons: **Submit**, **Cancel**, and **Clear** or **Reset**, depending on whether the form creates or updates a record.',
   platforms: [
     'javascript',
-    'react'
+    'react', 
+    'nextjs'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'javascript',
+        'react', 
+        'nextjs'
+      ],
+      canonicalPath: '/javascript/build-ui/formbuilder/call-to-action/'
+    }
   ]
 };
 
@@ -33,7 +43,7 @@ You can choose to show the action buttons on the bottom (default), top, or top a
 2. Go to **Display** > **Position**
 3. Select **Bottom**, **Top**, or **Top & bottom**
 
-<video autoPlay={true} muted={true} loop={true} width="100%">
+<video autoPlay={true} muted={true} loop={true} width="100%" playsInline={true}>
   <source src="/images/console/formbuilder/call-to-action-position.mp4" />
 </video>
 
@@ -45,7 +55,7 @@ You can customize action button labels to better describe your form's use case, 
 2. Go to **Display** > **Submit button label**
 3. Enter your custom button label
 
-<video autoPlay={true} muted={true} loop={true} width="100%">
+<video autoPlay={true} muted={true} loop={true} width="100%" playsInline={true}>
   <source src="/images/console/formbuilder/call-to-action-label.mp4" />
 </video>
 
@@ -57,7 +67,7 @@ You can customize the visibility of action buttons to better accommodate your fo
 2. Go to **Display** > **Submit button is visible**
 3. Enter your custom button label
 
-<video autoPlay={true} muted={true} loop={true} width="100%">
+<video autoPlay={true} muted={true} loop={true} width="100%" playsInline={true}>
   <source src="/images/console/formbuilder/call-to-action-visibility.mp4" />
 </video>
 

@@ -3,7 +3,27 @@ import { getCustomStaticPath } from '@/utils/getCustomStaticPath';
 export const meta = {
   title: 'Connect your app code to the API',
   description: 'Learn how to connect your app code to the API.',
-  platforms: ['javascript', 'react-native', 'angular', 'nextjs', 'react', 'vue']
+  platforms: [
+    'javascript',
+    'react-native',
+    'angular',
+    'nextjs',
+    'react',
+    'vue'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'angular',
+        'javascript',
+        'react-native',
+        'nextjs',
+        'react',
+        'vue'
+      ],
+      canonicalPath: '/javascript/prev/build-a-backend/graphqlapi/connect-to-api/'
+    }
+  ]
 };
 
 export const getStaticPaths = async () => {
@@ -33,7 +53,7 @@ Before you begin, you will need:
 The Amplify Library is the recommended client library used to connect to your GraphQL APIs. To install the the Amplify client library, navigate to your frontend's root folder and run the following command in your Terminal:
 
 ```bash
-npm install aws-amplify
+npm install aws-amplify@^5
 ```
 
 ## Configure the Amplify Library

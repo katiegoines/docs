@@ -384,6 +384,9 @@ export const directory = {
                 },
                 {
                   path: 'src/pages/[platform]/build-a-backend/storage/data-usage-policy/index.mdx'
+                },
+                {
+                  path: 'src/pages/[platform]/build-a-backend/storage/storage-v5-to-v6-migration-guide/index.mdx'
                 }
               ]
             },
@@ -407,6 +410,9 @@ export const directory = {
                 },
                 {
                   path: 'src/pages/[platform]/build-a-backend/functions/configure-options/index.mdx'
+                },
+                {
+                  path: 'src/pages/[platform]/build-a-backend/functions/graphql-from-lambda/index.mdx'
                 }
               ]
             },
@@ -473,6 +479,9 @@ export const directory = {
               children: [
                 {
                   path: 'src/pages/[platform]/build-a-backend/existing-resources/cli/index.mdx'
+                },
+                {
+                  path: 'src/pages/[platform]/build-a-backend/existing-resources/cdk/index.mdx'
                 }
               ]
             },
@@ -777,6 +786,9 @@ export const directory = {
                 },
                 {
                   path: 'src/pages/[platform]/build-a-backend/troubleshooting/migrate-from-javascript-v5-to-v6/index.mdx'
+                },
+                {
+                  path: 'src/pages/[platform]/build-a-backend/troubleshooting/library-not-configured/index.mdx'
                 }
               ]
             }
@@ -1050,6 +1062,9 @@ export const directory = {
                     },
                     {
                       path: 'src/pages/[platform]/tools/cli/migration/identity-claim-changes/index.mdx'
+                    },
+                    {
+                      path: 'src/pages/[platform]/tools/cli/migration/iam-auth-updates-for-cdk-construct/index.mdx'
                     }
                   ]
                 },
@@ -1892,6 +1907,9 @@ export const directory = {
               children: [
                 {
                   path: 'src/pages/[platform]/sdk/configuration/setup-options/index.mdx'
+                },
+                {
+                  path: 'src/pages/[platform]/sdk/configuration/amplify-compatibility/index.mdx'
                 }
               ]
             },
@@ -1931,10 +1949,16 @@ export const directory = {
               path: 'src/pages/gen2/start/quickstart/index.mdx',
               children: [
                 {
+                  path: 'src/pages/gen2/start/quickstart/vite-react-app/index.mdx'
+                },
+                {
                   path: 'src/pages/gen2/start/quickstart/nextjs-pages-router/index.mdx'
                 },
                 {
-                  path: 'src/pages/gen2/start/quickstart/nextjs-app-router/index.mdx'
+                  path: 'src/pages/gen2/start/quickstart/nextjs-app-router-client-components/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/start/quickstart/nextjs-app-router-server-components/index.mdx'
                 }
               ]
             },
@@ -1986,6 +2010,9 @@ export const directory = {
                   path: 'src/pages/gen2/build-a-backend/auth/admin-actions/index.mdx'
                 },
                 {
+                  path: 'src/pages/gen2/build-a-backend/auth/grant-access-to-auth-resources/index.mdx'
+                },
+                {
                   path: 'src/pages/gen2/build-a-backend/auth/override-cognito/index.mdx'
                 }
               ]
@@ -2015,10 +2042,13 @@ export const directory = {
                       path: 'src/pages/gen2/build-a-backend/data/data-modeling/add-fields/index.mdx'
                     },
                     {
+                      path: 'src/pages/gen2/build-a-backend/data/data-modeling/relationships/index.mdx'
+                    },
+                    {
                       path: 'src/pages/gen2/build-a-backend/data/data-modeling/identifiers/index.mdx'
                     },
                     {
-                      path: 'src/pages/gen2/build-a-backend/data/data-modeling/relationships/index.mdx'
+                      path: 'src/pages/gen2/build-a-backend/data/data-modeling/secondary-index/index.mdx'
                     }
                   ]
                 },
@@ -2050,15 +2080,15 @@ export const directory = {
                       path: 'src/pages/gen2/build-a-backend/data/customize-authz/configure-custom-identity-and-group-claim/index.mdx'
                     },
                     {
-                      path: 'src/pages/gen2/build-a-backend/data/customize-authz/use-iam-authz-within-appsync-console/index.mdx'
-                    },
-                    {
                       path: 'src/pages/gen2/build-a-backend/data/customize-authz/grant-lambda-function-access-to-api/index.mdx'
                     }
                   ]
                 },
                 {
                   path: 'src/pages/gen2/build-a-backend/data/custom-business-logic/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/build-a-backend/data/custom-subscription/index.mdx'
                 },
                 {
                   path: 'src/pages/gen2/build-a-backend/data/connect-from-server-runtime/index.mdx'
@@ -2085,6 +2115,18 @@ export const directory = {
                 },
                 {
                   path: 'src/pages/gen2/build-a-backend/add-aws-services/overriding-resources/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/build-a-backend/add-aws-services/rest-api/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/build-a-backend/add-aws-services/in-app-messaging/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/build-a-backend/add-aws-services/analytics/index.mdx'
+                },
+                {
+                  path: 'src/pages/gen2/build-a-backend/add-aws-services/geo/index.mdx'
                 }
               ]
             }

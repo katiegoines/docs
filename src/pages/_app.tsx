@@ -3,11 +3,11 @@ import '../styles/styles.scss';
 import Head from 'next/head';
 import { MDXProvider } from '@mdx-js/react';
 import { Layout } from '@/components/Layout';
-import { CANONICAL_URLS } from '@/data/canonical-urls';
 import { useRouter } from 'next/router';
 import { useEffect } from 'react';
 import { trackPageVisit } from '../utils/track';
 import { useCurrentPlatform } from '@/utils/useCurrentPlatform';
+import { useCanonicalUrl } from '@/utils/useCanonicalUrl';
 
 function MyApp({ Component, pageProps }) {
   const {
@@ -54,12 +54,10 @@ function MyApp({ Component, pageProps }) {
     ));
 
   let canonicalUrl = 'https://docs.amplify.aws';
-  let canonicalPath = meta?.canonicalUrl ? meta.canonicalUrl : router.pathname;
-  canonicalPath = CANONICAL_URLS.includes(canonicalPath)
-    ? router.pathname.replace('[platform]', 'javascript')
-    : canonicalPath;
-  canonicalPath = canonicalPath.replace('[platform]', useCurrentPlatform());
-  canonicalUrl += canonicalPath;
+
+  const canonicalUrlPath = useCanonicalUrl(meta, useCurrentPlatform());
+
+  canonicalUrl += canonicalUrlPath;
 
   return (
     <>
@@ -177,6 +175,24 @@ function MyApp({ Component, pageProps }) {
 
         <link rel="apple-touch-icon" href="/assets/icon/icon.png" />
         <link rel="canonical" href={canonicalUrl} />
+
+        {process.env.BUILD_ENV !== 'production' ? (
+          <>
+            <link
+              rel="preload"
+              as="script"
+              href="https://aa0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"
+            />
+          </>
+        ) : (
+          <>
+            <link
+              rel="preload"
+              as="script"
+              href="https://a0.awsstatic.com/s_code/js/3.0/awshome_s_code.js"
+            />
+          </>
+        )}
       </Head>
 
       <MDXProvider>{getLayout(<Component {...pageProps} />)}</MDXProvider>

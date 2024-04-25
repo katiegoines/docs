@@ -11,6 +11,19 @@ export const meta = {
     'nextjs',
     'react',
     'vue'
+  ],
+  canonicalObjects: [
+    {
+      platforms: [
+        'react-native',
+        'javascript',
+        'react',
+        'angular',
+        'nextjs',
+        'vue'
+      ],
+      canonicalPath: '/javascript/build-a-backend/troubleshooting/upgrade-amplify-packages/'
+    }
   ]
 };
 
@@ -61,7 +74,7 @@ yarn list --pattern amplify | \
 ```
 
 ```sh
-# Using NPM
+# Using npm
 npm ls -all 2>/dev/null | \
   grep -o -e '@\?aws-amplify[^ ]*' | \
   sort | uniq | \
@@ -83,7 +96,7 @@ yarn list --pattern amplify |
 ```
 
 ```powershell
-# Using NPM
+# Using npm
 npm ls -all 2>$null |
   Select-String -Pattern  '(@?aws\-amplify[^@]*).*(?<!deduped)$' |
   %{$_.Matches.Groups[1].value} | Group-Object |

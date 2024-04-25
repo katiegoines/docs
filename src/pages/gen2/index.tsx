@@ -81,11 +81,7 @@ const Gen2Overview = () => {
           </Text>
           <sup>
             {' '}
-            <Badge
-              size="small"
-              backgroundColor="purple.60"
-              color="font.inverse"
-            >
+            <Badge size="small" backgroundColor="purple.60" color="white">
               Preview
             </Badge>
           </sup>
@@ -185,6 +181,7 @@ const Gen2Overview = () => {
           autoPlay
           muted
           loop
+          playsInline={true}
         />
 
         <Columns columns={2} as="ul">
@@ -292,8 +289,8 @@ const Gen2Overview = () => {
           codeString={`import * as sns from 'aws-cdk-lib/aws-sns';
 import * as sqs from 'aws-cdk-lib/aws-sqs';
 import { defineBackend } from '@aws-amplify/backend';
-import { auth } from './auth/resource.js';
-import { data } from './data/resource.js';
+import { auth } from './auth/resource';
+import { data } from './data/resource';
 
 const backend = defineBackend({
   auth,
