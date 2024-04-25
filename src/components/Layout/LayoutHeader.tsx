@@ -12,7 +12,7 @@ import { IconMenu, IconDoubleChevron } from '@/components/Icons';
 import { Menu } from '@/components/Menu';
 import { LayoutContext } from '@/components/Layout';
 import { PlatformNavigator } from '@/components/PlatformNavigator';
-import flatDirectory from 'src/directory/flatDirectory.json';
+import flatDirectory from '@/directory/flatDirectory.json';
 import { DocSearch } from '@docsearch/react';
 import '@docsearch/css';
 import { PageLastUpdated } from '../PageLastUpdated';
@@ -113,7 +113,10 @@ export const LayoutHeader = ({
             <VisuallyHidden>Close menu</VisuallyHidden>
           </Button>
           {isGen2 ? null : (
-            <div className="layout-sidebar-platform">
+            <div
+              className="layout-sidebar-platform"
+              aria-label="navigator-platform"
+            >
               <PlatformNavigator
                 currentPlatform={currentPlatform}
                 isPrev={isPrev}
