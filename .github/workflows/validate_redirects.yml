@@ -13,13 +13,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@a5ac7e51b41094c92402da3b24376905380afc29 # v4.1.6
+
       - name: Validate redirects
         id: redirects
         uses: actions/github-script@60a0d83039c74a4aee543508d2ffcb1c3799cdea # v7.0.1
         with:
           result-encoding: string
           script: |
-            const { redirects } = require('./tasks/validate-redirects');
+            const { redirects } = require('./tasks/validate-redirects.mjs');
             return await invalidRedirects();
       - name: Fail if any invalid redirects have been found
         if: ${{ steps.redirects.outputs.result }}
