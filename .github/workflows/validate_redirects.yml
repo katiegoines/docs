@@ -29,4 +29,4 @@ jobs:
             return await invalidRedirects();
       - name: Fail if any invalid redirects have been found
         if: ${{ steps.redirects.outputs.result }}
-        run: print ${{ steps.redirects.outputs.result }} && exit 1
+        run: echo ${{ steps.redirects.outputs.result }} && exit 1
