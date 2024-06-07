@@ -2,8 +2,7 @@ module.exports = {
   invalidRedirects: () => {
     const Ajv = require('ajv');
     const redirects = require('../../../redirects.json');
-    // import * as redirects from '../../../redirects.json' assert { type: 'json' };
-    const ajv = new Ajv({ formats: { 'uri-reference': true }, strict: false });
+    const ajv = new Ajv();
 
     const schema = {
       type: 'array',
