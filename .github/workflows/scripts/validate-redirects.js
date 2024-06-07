@@ -35,10 +35,10 @@ module.exports = {
 
     const validate = ajv.compile(schema);
 
-    const valid = validate(redirects.default);
+    // const valid = validate(redirects.default);
     if (!valid) {
-      // const invalidEntry =
-      //   redirects.default[validate.errors[0].instancePath.slice(1, -7)];
+      const invalidEntry =
+        redirects[validate.errors[0].instancePath.slice(1, -7)];
       const loc = validate.errors[0].schemaPath;
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
