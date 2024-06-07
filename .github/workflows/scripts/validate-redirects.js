@@ -38,12 +38,12 @@ module.exports = {
     const valid = validate(redirects);
     if (!valid) {
       const invalidEntry =
-        redirects[validate.errors[0].instancePath.slice(1, -7)];
+        JSON.stringify(redirects[validate.errors[0].instancePath.slice(1, -7)]);
+
       const loc = validate.errors[0].schemaPath;
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
       const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
-      console.log(errorMessage);
       return errorMessage;
     }
   }
