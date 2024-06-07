@@ -31,11 +31,11 @@ module.exports = {
       }
     };
 
-    console.log(redirects)
+    // console.log(redirects)
 
     const validate = ajv.compile(schema);
 
-    // const valid = validate(redirects.default);
+    const valid = validate(redirects);
     if (!valid) {
       const invalidEntry =
         redirects[validate.errors[0].instancePath.slice(1, -7)];
