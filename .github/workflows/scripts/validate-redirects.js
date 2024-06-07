@@ -43,6 +43,7 @@ module.exports = {
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
       const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
+      console.log(errorMessage);
       return errorMessage;
     }
   }
