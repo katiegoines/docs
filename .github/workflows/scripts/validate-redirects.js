@@ -2,8 +2,7 @@ module.exports = {
   invalidRedirects: () => {
     const Ajv = require('ajv');
     const redirects = require('../../../redirects.json');
-    // import * as redirects from '../../../redirects.json' assert { type: 'json' };
-    const ajv = new Ajv({ formats: { 'uri-reference': true }, strict: false });
+    const ajv = new Ajv();
 
     const schema = {
       type: 'array',
@@ -20,7 +19,6 @@ module.exports = {
             description:
               'The address that actually serves the content that the user sees',
             type: 'string',
-            format: 'uri-reference',
             pattern: '^[(https)(/)]'
           },
           status: {
@@ -35,14 +33,14 @@ module.exports = {
 
     const validate = ajv.compile(schema);
 
-    const valid = validate(redirects.default);
+    const valid = validate(redirects);
     if (!valid) {
       const invalidEntry =
-        redirects.default[validate.errors[0].instancePath.slice(1, -7)];
-      const loc = validate.errors[0].schemaPath;
-      const error = loc.slice(loc.indexOf('properties') + 11, -8);
+        JSON.stringify(redirects[validate.errors[0].instancePath.slice(1, -7)]);
+      const error = validate.errors[0];
+      const loc = error.schemaPath.slice(error.schemaPath.indexOf('properties') + 11, -8);
 
-      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
+      const errorMessage = '\n\n' + 'INVALID ENTRY: Please correct the error in the "' + loc +'" property of the following entry: \n' + invalidEntry + '\n\n' + 'ERROR MESSAGE: ' + error.message;
       return errorMessage;
     }
   }
