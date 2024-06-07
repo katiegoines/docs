@@ -20,7 +20,7 @@ jobs:
         with:
           result-encoding: string
           script: |
-            const { redirects } = require('./tasks/validate-redirects.mjs');
+            const { invalidRedirects } = require('./tasks/validate-redirects.mjs');
             return await invalidRedirects();
       - name: Fail if any invalid redirects have been found
         if: ${{ steps.redirects.outputs.result }}
