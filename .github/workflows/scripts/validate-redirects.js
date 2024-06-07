@@ -35,12 +35,13 @@ module.exports = {
 
     const valid = validate(redirects.default);
     if (!valid) {
-      const invalidEntry =
-        redirects.default[validate.errors[0].instancePath.slice(1, -7)];
+      console.log( redirects.default)
+      // const invalidEntry =
+      //   redirects.default[validate.errors[0].instancePath.slice(1, -7)];
       const loc = validate.errors[0].schemaPath;
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
-      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
+      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:';
       return errorMessage;
     }
   }
