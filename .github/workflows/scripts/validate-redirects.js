@@ -39,9 +39,8 @@ module.exports = {
         JSON.stringify(redirects[validate.errors[0].instancePath.slice(1, -7)]);
       const error = validate.errors[0];
       const loc = validate.errors[0].schemaPath.slice(validate.errors[0].schemaPath.indexOf('properties') + 11, -8);
-      console.log(validate.errors[0])
 
-      const errorMessage = '\n\n' + 'INVALID ENTRY: Please correct the error in the "' + loc +'" property of the following entry: \n' + invalidEntry + '\n\n';
+      const errorMessage = '\n\n' + 'INVALID ENTRY: Please correct the error in the "' + loc +'" property of the following entry: \n' + invalidEntry + '\n\n' + error;
       return errorMessage;
     }
   }
