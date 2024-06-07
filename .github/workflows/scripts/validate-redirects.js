@@ -42,7 +42,7 @@ module.exports = {
       const loc = validate.errors[0].schemaPath;
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
-      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:';
+      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
       return errorMessage;
     }
   }
