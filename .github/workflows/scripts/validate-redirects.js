@@ -31,8 +31,6 @@ module.exports = {
       }
     };
 
-    // console.log(redirects)
-
     const validate = ajv.compile(schema);
 
     const valid = validate(redirects);
@@ -43,7 +41,7 @@ module.exports = {
       const loc = validate.errors[0].schemaPath;
       const error = loc.slice(loc.indexOf('properties') + 11, -8);
 
-      const errorMessage = 'Please correct the error in the "' + error +'" property of the following entry:' + invalidEntry;
+      const errorMessage = '\n Please correct the error in the "' + error +'" property of the following entry: \n' + invalidEntry;
       return errorMessage;
     }
   }
