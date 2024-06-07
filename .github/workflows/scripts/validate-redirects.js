@@ -19,7 +19,6 @@ module.exports = {
             description:
               'The address that actually serves the content that the user sees',
             type: 'string',
-            format: 'uri-reference',
             pattern: '^[(https)(/)]'
           },
           status: {
