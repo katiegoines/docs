@@ -35,6 +35,6 @@ jobs:
           script: |
             const { redirects } = require('./tasks/validate_redirects');
             return await invalidRedirects();
-      - name: Fail if console errors have been found
+      - name: Fail if any invalid redirects have been found
         if: ${{ steps.redirects.outputs.result }}
         run: exit 1

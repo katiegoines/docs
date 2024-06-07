@@ -12,7 +12,7 @@
 	{
 		"source": "/lib/ssr/ssr/",
 		"target": "/gen1/javascript/prev/build-a-backend/server-side-rendering/",
-		"status": "606"
+		"status": "301"
 	},
 	{
 		"source": "cli/plugins/",
