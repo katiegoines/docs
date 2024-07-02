@@ -5,7 +5,7 @@
 		"status": "301"
 	},
 	{
-		"source": "/cli/function/function/",
+		"source": "cli/function/function/",
 		"target": "/javascript/build-a-backend/functions/set-up-function/",
 		"status": "301"
 	},
