@@ -5,7 +5,7 @@
 		"status": "301"
 	},
 	{
-		"source": "/cli/function/function/",
+		"source": "cli/function/function/",
 		"target": "/javascript/build-a-backend/functions/set-up-function/",
 		"status": "301"
 	},
@@ -3011,7 +3011,7 @@
 	},
 	{
 		"source": "/lib/client-configuration/configuring-amplify-categories/q/platform/react-native/",
-		"target": "react-native/tools/libraries/configure-categories/",
+		"target": "/react-native/tools/libraries/configure-categories/",
 		"status": "301"
 	},
 	{
