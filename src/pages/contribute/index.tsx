@@ -2,7 +2,7 @@ import { Heading, Text, Flex, View } from '@aws-amplify/ui-react';
 import ExportedImage from 'next-image-export-optimizer';
 import { InternalLinkButton } from '@/components/InternalLinkButton';
 import HowItWorks from '@/components/contribute/HowItWorks';
-import { YoutubeEmbed } from '@/components/YoutubeEmbed';
+import { Video } from '@/components/Video';
 import { Columns } from '@/components/Columns';
 
 const meta = {
@@ -92,8 +92,14 @@ export default function Contribute() {
       </Text>
 
       <Columns columns={2}>
-        <YoutubeEmbed embedId="8BUSqSkhqtw" width="600" height="350" />
-        <YoutubeEmbed embedId="WMKVE98hEzE" width="600" height="350" />
+        <Video
+          src="https://www.youtube-nocookie.com/embed/8BUSqSkhqtw"
+          description="Quickstart - Contribute to AWS Amplify JS in under 15 minutes"
+        />
+        <Video
+          src="https://www.youtube-nocookie.com/embed/WMKVE98hEzE"
+          description="Quickstart - Contribute to AWS Amplify CLI in under 15 minutes"
+        />
       </Columns>
     </Flex>
   );
