@@ -75,7 +75,7 @@ const getCspContent = (context) => {
       img-src 'self' https://img.shields.io data: ${ANALYTICS_CSP.all.img.join(
         ' '
       )} ${ANALYTICS_CSP.alpha.img.join(' ')}; 
-      media-src 'self';
+      media-src 'self' https://www.youtube-nocookie.com/;
       script-src 'unsafe-eval' 'self' ${cspInlineScriptHash} ${ANALYTICS_CSP.alpha.script.join(
         ' '
       )} ${ANALYTICS_CSP.all.script.join(' ')};`;
@@ -98,7 +98,7 @@ const getCspContent = (context) => {
     img-src 'self' https://img.shields.io ${ANALYTICS_CSP.all.img.join(
       ' '
     )} ${ANALYTICS_CSP.prod.img.join(' ')};
-    media-src 'self';
+    media-src 'self' https://www.youtube-nocookie.com/;
     script-src 'self' ${cspInlineScriptHash} ${ANALYTICS_CSP.prod.script.join(
       ' '
     )} ${ANALYTICS_CSP.all.script.join(' ')};
